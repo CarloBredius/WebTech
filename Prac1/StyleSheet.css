@@ -1,0 +1,61 @@
+﻿body {
+    font-family: 'Arial', sans-serifl; /* sans-serifl is for people don't have almost no fonts installed*/
+    background-color: powderblue;
+}
+
+figure {
+    float: right;
+    width: 30%;
+    text-align: center;
+    font-style: italic;
+    font-size: smaller;
+    text-indent: 0;
+    /* border: thin silver solid; */
+    margin: 0.5em;
+    padding: 0.5em;
+}
+
+#menu_wrapper {
+    /*max-width: 1080px; */
+    margin: 0 auto;
+    /*background-color: white; */
+    padding: 32px;
+}
+
+header {
+    background-color: blue;
+    height: 100px;
+    padding: 4px;
+}
+header h1 {
+    text-align: center;
+    color: lightblue;
+    line-height: 50px;
+}
+
+.menu {
+    padding: 5px 0 5px 0;
+    text-align: center;
+    line-height: 32px;
+    background-color: blue;
+}
+
+ul.menu {
+    margin-top: 15px;
+}
+
+.menu li {
+    display: inline;
+    padding: 0 10px 0 10px;
+    font-size: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: lightblue;
+    padding: 8px;
+    font-variant: small-caps;
+}
+.menu a:hover {
+    color: yellow;
+}
