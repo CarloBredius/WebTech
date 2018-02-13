@@ -3,7 +3,27 @@
     background-color: powderblue;
 }
 
-figure {
+a {
+    color: red;
+    text-decoration: none;
+}
+
+a:visited {
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: green;
+    text-decoration: none;
+}
+
+a:active {
+    color: yellow;
+    text-decoration: none;
+}
+
+figureLeft {
     float: right;
     width: 30%;
     text-align: center;
