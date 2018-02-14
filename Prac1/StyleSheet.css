@@ -23,16 +23,24 @@ a:active {
     text-decoration: none;
 }
 
-figureLeft {
-    float: right;
+figure {
     width: 30%;
     text-align: center;
     font-style: italic;
     font-size: smaller;
+    font-weight: normal;
     text-indent: 0;
-    /* border: thin silver solid; */
-    margin: 0.5em;
+    margin: 0 auto 0.55em; /* centered */
     padding: 0.5em;
+}
+
+.figureRight {
+    float: right;    
+    margin: 0.5em;
+}
+.figureLeft {
+    float: left;
+    margin: 0.5em;
 }
 
 #menu_wrapper {
@@ -76,6 +84,7 @@ ul.menu {
     padding: 8px;
     font-variant: small-caps;
 }
+
 .menu a:hover {
     color: yellow;
 }
