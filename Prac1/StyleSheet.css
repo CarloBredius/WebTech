@@ -10,17 +10,14 @@ a {
 
 a:visited {
     color: blue;
-    text-decoration: none;
 }
 
 a:hover {
     color: green;
-    text-decoration: none;
 }
 
 a:active {
     color: yellow;
-    text-decoration: none;
 }
 
 figure {
@@ -30,8 +27,21 @@ figure {
     font-size: smaller;
     font-weight: normal;
     text-indent: 0;
-    margin: 0 auto 0.55em; /* centered */
     padding: 0.5em;
+}
+.tableFigure {
+    border: none;
+    margin:0 auto;
+}
+.tableFigure th {
+    border: none;
+}
+.tableNormal {
+    border: 1px blue solid;
+    text-align: center;
+}
+.tableNormal th {
+    border: 1px blue solid;
 }
 
 .figureRight {
