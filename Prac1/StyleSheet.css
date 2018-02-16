@@ -1,6 +1,7 @@
 ﻿body {
     font-family: 'Arial', sans-serifl; /* sans-serifl is for people don't have almost no fonts installed*/
     background-color: powderblue;
+    padding: 16px;
 }
 
 a {
@@ -18,6 +19,10 @@ a:hover {
 
 a:active {
     color: yellow;
+}
+aside {
+    float:right;
+    background-color:red;
 }
 
 figure {
@@ -57,7 +62,6 @@ figure {
     /*max-width: 1080px; */
     margin: 0 auto;
     /*background-color: white; */
-    padding: 32px;
 }
 
 header {
