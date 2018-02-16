@@ -1,11 +1,12 @@
 ﻿body {
     font-family: 'Arial', sans-serifl; /* sans-serifl is for people don't have almost no fonts installed*/
-    background-color: powderblue;
-    padding: 16px;
+    background-color: lightblue;
+    margin-top:183px; /* size of menu */
 }
 
 article {
     background-color: lightskyblue;
+    padding-bottom:4px;
 }
 
 section {
@@ -14,7 +15,9 @@ section {
 }
 
 aside {
-    float: right;
+    margin-top: 10px;
+    position: fixed;
+    right:4px;
 }
 
 a {
@@ -50,12 +53,16 @@ figure {
 .tableFigure th {
     border: none;
 }
+
 .tableNormal {
     border: 1px blue solid;
     text-align: center;
 }
 .tableNormal th {
     border: 1px blue solid;
+}
+.tableNormal th:hover {
+    background-color:dodgerblue;
 }
 
 .figureRight {
@@ -68,15 +75,22 @@ figure {
 }
 
 #menu_wrapper {
-    /*max-width: 1080px; */
+    left:0px;
+    width: 98.5%; /* take padding into account */
+    height:150px;
     margin: 0 auto;
-    /*background-color: white; */
+    background-color: lightblue;
+    position:fixed;
+    top:0px;
+    padding:0px 10px 0px 10px;
 }
 
 header {
     background-color: blue;
-    height: 100px;
-    padding: 4px;
+    height: 80px;
+    padding-bottom: 4px;
+    padding-left:4px;
+    padding-top:4px;
 }
 header h1 {
     text-align: center;
@@ -97,7 +111,7 @@ ul.menu {
 
 .menu li {
     display: inline;
-    padding: 0 10px 0 10px;
+    padding: 0 20px 0 20px;
     font-size: 20px;
 }
 
