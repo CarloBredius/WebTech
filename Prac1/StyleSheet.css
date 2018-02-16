@@ -5,11 +5,12 @@
 }
 
 article {
-    background-color:blue;
+    background-color: lightskyblue;
 }
 
 section {
-    background-color:lightblue;
+    margin: 15px;
+    background-color: lightsteelblue;
 }
 
 aside {
