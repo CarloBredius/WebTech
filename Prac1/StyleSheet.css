@@ -5,13 +5,15 @@
 }
 
 article {
-    background-color: lightskyblue;
-    padding-bottom:4px;
+    background-color: #d6f5f5;
+    padding-bottom: 4px;
+    box-shadow: 5px -2px 5px black;
 }
 
 section {
     margin: 15px;
-    background-color: lightsteelblue;
+    background-color: #e6e6e6;
+    box-shadow: 5px -1px 5px black;
 }
 
 aside {
