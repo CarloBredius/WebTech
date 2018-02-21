@@ -44,6 +44,13 @@ a:active {
     color: yellow;
 }
 
+:target:before {
+  content:"";
+  display:block;
+  height:155px; /* fixed header height*/
+  margin:-155px 0 0; /* negative fixed header height */
+}
+
 figure {
     width: 30%;
     text-align: center;
@@ -68,11 +75,38 @@ figcaption {
     border: 1px blue solid;
     text-align: center;
 }
-.tableNormal th {
-    border: 1px blue solid;
+.tableNormal th:nth-child(1) {
+    text-align: right;
 }
-.tableNormal th:hover {
-    background-color:dodgerblue;
+.tableNormal th:nth-child(2){
+    text-align: left;
+}
+.tableNormal th{
+    background-color: rgba( 12, 23, 51, 0.5);
+    color: white;
+}
+
+
+.tableNormal td:hover {
+    background-color: rgba( 0, 0, 0, 0.3);
+}
+.tableNormal td:nth-child(1){
+    border-right: 1px blue dotted;
+    border-bottom: 1px blue solid;
+    text-align: right;
+}
+
+.tableNormal td:nth-child(2){
+    text-align: left;
+    border-bottom: 1px blue solid;
+}
+
+.tableNormal tr:nth-child(even){
+    background-color: rgba( 50, 90, 204, 0.5);
+}
+
+.tableNormal tr:nth-child(odd){
+    background-color: rgba( 19, 34, 76, 0.5);
 }
 
 .figureRight {
