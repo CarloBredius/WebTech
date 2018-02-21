@@ -53,6 +53,9 @@ figure {
     text-indent: 0;
     padding: 0.5em;
 }
+figcaption {
+    width: 200px;
+}
 .tableFigure {
     border: none;
     margin:0 auto;
@@ -83,7 +86,7 @@ figure {
 
 #menu_wrapper {
     left:0px;
-    width: 98.5%; /* take padding into account */
+    width: 100%; /* take padding into account */
     height:150px;
     margin: 0 auto;
     background-color: lightblue;
