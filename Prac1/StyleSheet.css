@@ -47,8 +47,8 @@ a:active {
 :target:before {
   content:"";
   display:block;
-  height:155px; /* fixed header height*/
-  margin:-155px 0 0; /* negative fixed header height */
+  height:135px; /* fixed header height*/
+  margin:-135px 0 0; /* negative fixed header height */
 }
 
 figure {
