@@ -8,7 +8,7 @@ article {
     padding-left:7px;
     padding-right: 175px;
     background-color: #d6f5f5;
-    padding-bottom: 4px;
+    padding-bottom: 8px;
     box-shadow: 5px -2px 5px black;
     text-align: justify;
 }
@@ -25,6 +25,10 @@ aside {
     margin-top: 5px;
     position: fixed;
     right:8px;
+}
+
+footer {
+    padding-top: 10px;
 }
 
 a {
@@ -169,3 +173,4 @@ ul.menu {
 .menu a:hover {
     color: yellow;
 }
+
