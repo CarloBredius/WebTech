@@ -1,25 +1,30 @@
 ﻿body {
     font-family: 'Arial', sans-serifl; /* sans-serifl is for people don't have almost no fonts installed*/
     background-color: lightblue;
-    margin-top:183px; /* size of menu */
+    margin-top:155px; /* size of menu */
 }
 
 article {
+    padding-left:7px;
+    padding-right: 175px;
     background-color: #d6f5f5;
     padding-bottom: 4px;
     box-shadow: 5px -2px 5px black;
+    text-align: justify;
 }
 
 section {
-    margin: 15px;
+    padding-left:7px;
+    padding-right:7px;
+    margin-left: 15px;
     background-color: #e6e6e6;
     box-shadow: 5px -1px 5px black;
 }
 
 aside {
-    margin-top: 10px;
+    margin-top: 5px;
     position: fixed;
-    right:4px;
+    right:8px;
 }
 
 a {
