@@ -1,7 +1,7 @@
 ﻿body {
     font-family: 'Arial', sans-serifl; /* sans-serifl is for people don't have almost no fonts installed*/
     background-color: lightblue;
-    margin-top:155px; /* size of menu */
+    margin-top:135px; /* size of menu */
 }
 
 article {
@@ -11,6 +11,7 @@ article {
     padding-bottom: 8px;
     box-shadow: 5px -2px 5px black;
     text-align: justify;
+    margin:0px;
 }
 
 section {
@@ -22,9 +23,22 @@ section {
 }
 
 aside {
+    display: block;
     margin-top: 5px;
     position: fixed;
-    right:8px;
+    right: 0px;
+    width: 153px; /* article padding-right fixed, so this should also be fixed */
+    margin: 0 auto;
+    background-color: lightblue;
+    position: fixed;
+    top: 125px;
+    padding: 10px;
+    border-bottom-left-radius: 25px;
+    border-left: solid;
+    border-bottom: solid;
+    border-width: 3px;
+    border-color: blue;
+    box-shadow: -1px 1px 8px black;
 }
 
 footer {
@@ -51,8 +65,8 @@ a:active {
 :target:before {
   content:"";
   display:block;
-  height:135px; /* fixed header height*/
-  margin:-135px 0 0; /* negative fixed header height */
+  height:115px; /* fixed header height*/
+  margin:-115px 0 0; /* negative fixed header height */
 }
 
 figure {
@@ -123,27 +137,25 @@ figcaption {
 }
 
 #menu_wrapper {
-    left:0px;
+    left: 0px;
     width: 100%; /* take padding into account */
-    height:150px;
+    height: 125px;
     margin: 0 auto;
     background-color: lightblue;
-    position:fixed;
-    top:0px;
-    padding:0px 10px 0px 10px;
+    position: fixed;
+    top: 0px;
+    box-shadow: 1px 1px 8px black;
 }
 
 header {
     background-color: blue;
-    height: 80px;
-    padding-bottom: 4px;
-    padding-left:4px;
-    padding-top:4px;
+    height: 60px;
+    padding:4px;
 }
 header h1 {
     text-align: center;
     color: lightblue;
-    line-height: 50px;
+    line-height: 20px;
 }
 
 .menu {
@@ -173,4 +185,3 @@ ul.menu {
 .menu a:hover {
     color: yellow;
 }
-
