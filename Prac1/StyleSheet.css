@@ -145,6 +145,7 @@ figcaption {
     position: fixed;
     top: 0px;
     box-shadow: 1px 1px 8px black;
+    z-index: 2;
 }
 
 header {
