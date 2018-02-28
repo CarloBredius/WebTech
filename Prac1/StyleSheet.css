@@ -103,8 +103,6 @@ figcaption {
     background-color: rgba( 12, 23, 51, 0.5);
     color: white;
 }
-
-
 .tableNormal td:hover {
     background-color: rgba( 0, 0, 0, 0.3);
 }
@@ -113,12 +111,10 @@ figcaption {
     border-bottom: 1px blue solid;
     text-align: right;
 }
-
 .tableNormal td:nth-child(2){
     text-align: left;
     border-bottom: 1px blue solid;
 }
-
 .tableNormal tr:nth-child(even){
     background-color: rgba( 50, 90, 204, 0.5);
 }
@@ -127,16 +123,7 @@ figcaption {
     background-color: rgba( 19, 34, 76, 0.5);
 }
 
-.figureRight {
-    float: right;    
-    margin: 0.5em;
-}
-.figureLeft {
-    float: left;
-    margin: 0.5em;
-}
-
-#menu_wrapper {
+#menuWrapper {
     left: 0px;
     width: 100%; /* take padding into account */
     height: 125px;
@@ -196,20 +183,22 @@ ul.menu {
     opacity: 1;
 }
 
-.image {
+.imageOverlay {
     display: block;
     width: 100%;
     height: auto;
 }
 
-.image_rightFloating {
+.imageRightFloating {
     display: block;
     float: right;
+    padding: 0.5em;
 }
 
-.image_leftFloating {
+.imageLeftFloating {
     display: block;
     float: left;
+    padding: 0.5em;
 }
 
 .overlay {
