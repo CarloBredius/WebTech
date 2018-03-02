@@ -1,0 +1,225 @@
+﻿body {
+    font-family: 'Arial', sans-serifl; /* sans-serifl is for people don't have almost no fonts installed*/
+    background-color: lightblue;
+    margin-top:135px; /* size of menu */
+}
+
+article {
+    padding-left:7px;
+    padding-right: 175px;
+    background-color: #d6f5f5;
+    padding-bottom: 8px;
+    box-shadow: 5px -2px 5px black;
+    text-align: justify;
+    margin:0px;
+}
+
+section {
+    padding-left:7px;
+    padding-right:7px;
+    margin-left: 15px;
+    background-color: #e6e6e6;
+    box-shadow: 5px -1px 5px black;
+}
+
+aside {
+    display: block;
+    margin-top: 5px;
+    position: fixed;
+    right: 0px;
+    width: 153px; /* article padding-right fixed, so this should also be fixed */
+    margin: 0 auto;
+    background-color: lightblue;
+    position: fixed;
+    top: 125px;
+    padding: 10px;
+    border-bottom-left-radius: 25px;
+    border-left: solid;
+    border-bottom: solid;
+    border-width: 3px;
+    border-color: blue;
+    box-shadow: -1px 1px 8px black;
+}
+
+footer {
+    padding-top: 10px;
+}
+
+a {
+    color: red;
+    text-decoration: none;
+}
+
+a:visited {
+    color: blue;
+}
+
+a:hover {
+    color: green;
+}
+
+a:active {
+    color: yellow;
+}
+
+:target:before {
+  content:"";
+  display:block;
+  height:115px; /* fixed header height*/
+  margin:-115px 0 0; /* negative fixed header height */
+}
+
+figure {
+    width: 30%;
+    text-align: center;
+    font-style: italic;
+    font-size: smaller;
+    font-weight: normal;
+    text-indent: 0;
+    padding: 0.5em;
+}
+figcaption {
+    width: 200px;
+}
+.tableFigure {
+    border: none;
+    margin:0 auto;
+}
+.tableFigure th {
+    border: none;
+}
+
+.tableNormal {
+    border: 1px blue solid;
+    text-align: center;
+}
+.tableNormal th:nth-child(1) {
+    text-align: right;
+}
+.tableNormal th:nth-child(2){
+    text-align: left;
+}
+.tableNormal th{
+    background-color: rgba( 12, 23, 51, 0.5);
+    color: white;
+}
+.tableNormal td:hover {
+    background-color: rgba( 0, 0, 0, 0.3);
+}
+.tableNormal td:nth-child(1){
+    border-right: 1px blue dotted;
+    border-bottom: 1px blue solid;
+    text-align: right;
+}
+.tableNormal td:nth-child(2){
+    text-align: left;
+    border-bottom: 1px blue solid;
+}
+.tableNormal tr:nth-child(even){
+    background-color: rgba( 50, 90, 204, 0.5);
+}
+
+.tableNormal tr:nth-child(odd){
+    background-color: rgba( 19, 34, 76, 0.5);
+}
+
+#menuWrapper {
+    left: 0px;
+    width: 100%; /* take padding into account */
+    height: 125px;
+    margin: 0 auto;
+    background-color: lightblue;
+    position: fixed;
+    top: 0px;
+    box-shadow: 1px 1px 8px black;
+    z-index: 2;
+}
+
+header {
+    background-color: blue;
+    height: 60px;
+    padding:4px;
+}
+header h1 {
+    text-align: center;
+    color: lightblue;
+    line-height: 20px;
+}
+
+.menu {
+    padding: 5px 0 5px 0;
+    text-align: center;
+    line-height: 32px;
+    background-color: blue;
+}
+
+ul.menu {
+    margin-top: 15px;
+}
+
+.menu li {
+    display: inline;
+    padding: 0 20px 0 20px;
+    font-size: 16px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: lightblue;
+    padding: 8px;
+    font-variant: small-caps;
+}
+
+.menu a:hover {
+    color: yellow;
+}
+
+.container {
+    position: relative;
+    width: 50%;
+}
+
+.container:hover .overlay {
+    opacity: 1;
+}
+
+.imageOverlay {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.imageRightFloating {
+    display: block;
+    float: right;
+    padding: 0.5em;
+}
+
+.imageLeftFloating {
+    display: block;
+    float: left;
+    padding: 0.5em;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: 1s ease;
+    background-color: blue;
+}
+
+.text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
