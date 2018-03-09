@@ -3,9 +3,8 @@
 // Graph using Flot
 
 $(function () {
-
-    var diff = 0.15;
-
+    // Difference between bars
+    var diff = 0.125;
     
     var dataset = {
         "average": {
@@ -84,6 +83,33 @@ $(function () {
 
     choiceBoxes.find("input").click(plotChoices);
 
+    var prevPoint = null, prevLabel = null;
+    $.fn.UseTooltip = function () {
+        $(this).bind("plothover", function (event, pos, item) {
+            if (item) {
+                if ((prevLabel != item.series.label) || (prevPoint != item.dataIndex)) {
+                    prevPoint = item.dataIndex;
+                    prevLabel = item.series.label;
+                    $("#tooltip").remove();
+
+                    var x = item.datapoint[0];
+                    var y = item.datapoint[1];
+
+                    var color = item.series.color;
+
+                    console.log(item);
+
+                    showTooltip(item.pageX, item.pageY, color,
+                        "<strong>" + item.series.label + "</strong><br>" +
+                        " : <strong> $" + y + "</strong> " + "Billion");
+                }
+            } else {
+                $("#tooltip").remove();
+                prevPoint = null;
+            }
+        });
+    };
+
     function plotChoices() {
 
         var data = [];
@@ -103,40 +129,13 @@ $(function () {
     }
     
     plotChoices();
-    
-    var prevPoint = null, prevLabel = null;
-    $.fn.UseTooltip = function () {
-        $(this).bind("plothover", function (event, pos, item) {
-            if (item) {
-                if ((prevLabel != item.series.label) || (prevPoint != item.dataIndex)) {
-                    prevPoint = item.dataIndex;
-                    prevLabel = item.series.label;
-                    $("#tooltip").remove();
-
-                    var x = item.datapoint[0];
-                    var y = item.datapoint[1];
-
-                    var color = item.series.color;
-
-                    console.log(item);
-
-                    showTooltip(item.pageX, item.pageY, color,
-                        "<strong>" + item.series.label + "</strong><br>" +
-                        " : <strong> $" + y + "</strong> " + "B");
-                }
-            } else {
-                $("#tooltip").remove();
-                prevPoint = null;
-            }
-        });
-    };
 
     function showTooltip(x, y, color, contents) {
         $('<div id="tooltip">' + contents + '</div>').css({
             position: 'absolute',
             display: 'none',
-            top: y - 40,
-            left: x - 120,
+            top: y - 30,
+            left: x + 10,
             border: '2px solid ' + color,
             padding: '3px',
             'font-size': '9px',
