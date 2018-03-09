@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="VR, AR, virtual reality, augmented reality" />
     <meta name="description" content="This website will show general information about Virtual and Augmented Reality." />
+    <script language="javascript" type="text/javascript" src="Libraries/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="Libraries/jquery.flot.js"></script>
     <script type="text/javascript" src="myscript.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
     <link rel="shortcut icon" type="image/x-icon" href="media/favicon.ico">
@@ -34,8 +36,8 @@
             <img src="https://w.bookcdn.com/weather/picture/1_736_1_1_137AE9_160_ffffff_333333_08488D_1_ffffff_333333_0_6.png?scode=124&domid=w209&anc_id=17933"
                  alt="booked.net" />
         </a>
-        Algemeen:<br />
         <!-- weather widget end -->
+        Algemeen:<br />
         <a href="https://www.bol.com/nl/s/elektronica/zoekresultaten/Ntt/virtual%2Breality%2Bbril/N/3136/Nty/1/search/true/searchType/qck/suggestedFor/virtual+reality+bril/originalSearchContext/media_all/originalSection/main/defaultSearchContext/media_all/sc/s_elec_all/index.html">
             VR bril kopen
         </a>
@@ -57,17 +59,19 @@
         <a href="https://www.playstation.com/en-gb/explore/playstation-vr/">
             PlayStation VR
         </a>
+        <br />
+        <br />
+        <button onclick="contextMenu()" class="contexbtn">Context menu</button>
+        <div id="dropdown" class="dropdown-content">
+            <button onclick="changeColor()">Change color</button>
+            <button onclick="underline()">Underline</button>
+            <button onclick="bold()">Bold</button>
+            <button onclick="reset()">Reset</button>
+        </div>
     </aside>
     <article>
-
-        <h2>Testing around with Javascript</h2>
-        <section>
-            <p onclick="onTestClick('red')">Click me to change my text color.</p>
-            <p id="clickText">this will change</p>
-        </section>
-
         <h2>Intro</h2>
-        <section>
+        <section id="changetext">
             <h3 id="abbreviations">Gebruikte afkortingen</h3>
             <table class="tableNormal">
                 <tr>
@@ -103,7 +107,7 @@
         <section>
             <h3 id="introVideo">Intro video</h3>
                                                                     <!-- frameborder="1" allow="encrypted-media" -->
-            <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/f9MwaH6oGEY" allowfullscreen></iframe>-->
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/f9MwaH6oGEY" allowfullscreen></iframe>
         </section>
     </article>
 

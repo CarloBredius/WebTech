@@ -1,22 +1,36 @@
 // JavaScript source code
 
-$(document).ready(function () {
-    $("#contextmenu").on("click", function () {
-        var option1 = "1";
-        option2 = "2";
-        option3 = "3";
-        option4 = "4";
-        document.getElementById("contextmenu").innerHTML =
-            "<br /><ul><li id='option1'>" + option1 +
-            "</li><li>" + option2 +
-            "</li><li>" + option3 +
-            "</li><li>" + option4 +
-            "</li></ul>";
-    });
-    $("#option1").on("click", function () {
-        document.getElementById("option1").innerHTML += "hello world";
-    });
-});
+function contextMenu() {
+    document.getElementById("dropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function (event) {
+    if (!event.target.matches('.contexbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+function changeColor() {
+    document.getElementById("changetext").style.color = "red";
+}
+
+function bold() {
+    document.getElementById("changetext").style.fontWeight = "900";
+}
+function underline() {
+    document.getElementById("changetext").style.textDecoration = "underline";
+}
+
+function reset() {
+    document.getElementById("changetext").removeAttribute('style');
+
+}
 
 // Graph using Flot
 $(function () {

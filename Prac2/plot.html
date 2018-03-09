@@ -7,9 +7,7 @@
     <meta name="description" content="This website will show general information about Virtual and Augmented Reality." />
     <script language="javascript" type="text/javascript" src="Libraries/jquery.js"></script>
     <script language="javascript" type="text/javascript" src="Libraries/jquery.flot.js"></script>
-    <script language="javascript" type="text/javascript" src="Libraries/jquery.contextMenu.js"></script>
     <script type="text/javascript" src="myscript.js"></script>
-
     <link rel="stylesheet" href="stylesheet.css">
     <link rel="shortcut icon" type="image/x-icon" href="media/favicon.ico">
     <title>Form and Function</title>
@@ -62,13 +60,18 @@
             PlayStation VR
         </a>
         <br />
-        <button type="button" id="contextmenu">
-            Contextmenu
-            </button>
+        <br />
+        <button onclick="contextMenu()" class="contexbtn">Context menu</button>
+        <div id="dropdown" class="dropdown-content">
+            <button onclick="changeColor()">Change color</button>
+            <button onclick="underline()">Underline</button>
+            <button onclick="bold()">Bold</button>
+            <button onclick="reset()">Reset</button>
+        </div>
         </aside>
-    <article>
+    <article id="changetext">
         <h2>Virtual Reality market share over the years</h2>
-        <section>
+        <section id="changetext">
             <h3>In an interactive plot</h3>
             <div id="vrusers"></div>
             <p id="choiceboxes">Check which platforms should be seen:</p>

@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="VR, AR, virtual reality, augmented reality" />
     <meta name="description" content="This website will show general information about Virtual and Augmented Reality." />
-    <script type=“text/javascript” src=“myScript.js”></script>
+    <script language="javascript" type="text/javascript" src="Libraries/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="Libraries/jquery.flot.js"></script>
+    <script type="text/javascript" src="myscript.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
     <link rel="shortcut icon" type="image/x-icon" href="media/favicon.ico">
     <title>Pictures and Abbreviations</title>
@@ -34,8 +36,8 @@
             <img src="https://w.bookcdn.com/weather/picture/1_736_1_1_137AE9_160_ffffff_333333_08488D_1_ffffff_333333_0_6.png?scode=124&domid=w209&anc_id=17933"
                  alt="booked.net" />
         </a>
-        Algemeen:<br />
         <!-- weather widget end -->
+        Algemeen:<br />
         <a href="https://www.bol.com/nl/s/elektronica/zoekresultaten/Ntt/virtual%2Breality%2Bbril/N/3136/Nty/1/search/true/searchType/qck/suggestedFor/virtual+reality+bril/originalSearchContext/media_all/originalSection/main/defaultSearchContext/media_all/sc/s_elec_all/index.html">
             VR bril kopen
         </a>
@@ -57,6 +59,15 @@
         <a href="https://www.playstation.com/en-gb/explore/playstation-vr/">
             PlayStation VR
         </a>
+        <br />
+        <br />
+        <button onclick="contextMenu()" class="contexbtn">Context menu</button>
+        <div id="dropdown" class="dropdown-content">
+            <button onclick="changeColor()">Change color</button>
+            <button onclick="underline()">Underline</button>
+            <button onclick="bold()">Bold</button>
+            <button onclick="reset()">Reset</button>
+        </div>
     </aside>
     <article>
         <h2>Images</h2>
@@ -118,7 +129,7 @@
         </section>
 
         <a id="VRSection"></a>
-        <section>
+        <section  id="changetext">
             <h3>Virtual Reality</h3>
             Jump to <a href="#ARSection">Augmented Reality section</a>
             <table class="tableFigure">
