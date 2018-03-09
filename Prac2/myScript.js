@@ -1,11 +1,28 @@
 // JavaScript source code
 
-// Graph using Flot
+$(document).ready(function () {
+    $("#contextmenu").on("click", function () {
+        var option1 = "1";
+        option2 = "2";
+        option3 = "3";
+        option4 = "4";
+        document.getElementById("contextmenu").innerHTML =
+            "<br /><ul><li id='option1'>" + option1 +
+            "</li><li>" + option2 +
+            "</li><li>" + option3 +
+            "</li><li>" + option4 +
+            "</li></ul>";
+    });
+    $("#option1").on("click", function () {
+        document.getElementById("option1").innerHTML += "hello world";
+    });
+});
 
+// Graph using Flot
 $(function () {
-    // Difference between bars
+    // Distance between bars
     var diff = 0.125;
-    
+    // Data
     var dataset = {
         "average": {
             label: "Average",
@@ -50,7 +67,7 @@ $(function () {
             }
         }
     };
-
+    // Options for plot
     var options = {
         yaxis: {
             min: 0
@@ -82,7 +99,7 @@ $(function () {
     });
 
     choiceBoxes.find("input").click(plotChoices);
-
+    // Tooltip configuration
     var prevPoint = null, prevLabel = null;
     $.fn.UseTooltip = function () {
         $(this).bind("plothover", function (event, pos, item) {
@@ -101,7 +118,7 @@ $(function () {
 
                     showTooltip(item.pageX, item.pageY, color,
                         "<strong>" + item.series.label + "</strong><br>" +
-                        " : <strong> $" + y + "</strong> " + "Billion");
+                        "$" + y + " Billion");
                 }
             } else {
                 $("#tooltip").remove();
@@ -109,9 +126,8 @@ $(function () {
             }
         });
     };
-
+    // Checkboxes for plot
     function plotChoices() {
-
         var data = [];
         // Add each checked box to the dataset
         choiceBoxes.find("input:checked").each(function () {
@@ -127,28 +143,26 @@ $(function () {
             $("#vrusers").UseTooltip();
         }
     }
-    
+    // Fire the function
     plotChoices();
-
+    // Generate style for tooltip
     function showTooltip(x, y, color, contents) {
         $('<div id="tooltip">' + contents + '</div>').css({
             position: 'absolute',
-            display: 'none',
             top: y - 30,
             left: x + 10,
             border: '2px solid ' + color,
-            padding: '3px',
-            'font-size': '9px',
+            padding: '2px',
+            'font-size': '12px',
             'border-radius': '5px',
-            'background-color': '#fff',
+            'background-color': 'white',
             'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
-            opacity: 0.9
+            opacity: 0.8
         }).appendTo("body").fadeIn(200);
     }
 });
 
 // bron: https://infographic.statista.com/normal/chartoftheday_6677_the_worldwide_virtual_reality_market_is_set_to_be_huge_n.jpg
-// flot: http://www.jqueryflottutorial.com/how-to-make-jquery-flot-bar-chart.html
 function onTestClick(clr) {
     var text = document.getElementById("clickText").style.color = clr;
 }

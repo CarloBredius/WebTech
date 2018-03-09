@@ -4,6 +4,10 @@
     margin-top:135px; /* size of menu */
 }
 
+#vrusers {
+    width: 600px;
+    height: 300px;
+}
 article {
     padding-left:7px;
     padding-right: 175px;
@@ -222,9 +226,4 @@ ul.menu {
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-}
-
-#vrusers {
-    width: 500px;
-    height: 300px;
 }
