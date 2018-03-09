@@ -16,8 +16,9 @@ window.onclick = function (event) {
         }
     }
 }
-function changeColor() {
+function Colorize() {
     document.getElementById("changetext").style.color = "red";
+    document.getElementById("changetext").style.backgroundColor = "lightgreen";
 }
 
 function bold() {
@@ -29,7 +30,12 @@ function underline() {
 
 function reset() {
     document.getElementById("changetext").removeAttribute('style');
+}
 
+function propagate(n) {    
+    document.addEventListener("click", function () {
+        alert("Number " + n);
+    }, false);
 }
 
 // Graph using Flot
