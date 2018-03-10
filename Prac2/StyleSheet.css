@@ -55,17 +55,17 @@ a {
     text-decoration: none;
 }
 
-    a:visited {
-        color: blue;
-    }
+a:visited {
+    color: blue;
+}
 
-    a:hover {
-        color: green;
-    }
+a:hover {
+    color: green;
+}
 
-    a:active {
-        color: yellow;
-    }
+a:active {
+    color: yellow;
+}
 
 :target:before {
     content: "";
@@ -93,50 +93,50 @@ figcaption {
     margin: 0 auto;
 }
 
-    .tableFigure th {
-        border: none;
-    }
+.tableFigure th {
+    border: none;
+}
 
 .tableNormal {
     border: 1px blue solid;
     text-align: center;
 }
 
-    .tableNormal th:nth-child(1) {
-        text-align: right;
-    }
+.tableNormal th:nth-child(1) {
+    text-align: right;
+}
 
-    .tableNormal th:nth-child(2) {
-        text-align: left;
-    }
+.tableNormal th:nth-child(2) {
+    text-align: left;
+}
 
-    .tableNormal th {
-        background-color: rgba( 12, 23, 51, 0.5);
-        color: white;
-    }
+.tableNormal th {
+    background-color: rgba( 12, 23, 51, 0.5);
+    color: white;
+}
 
-    .tableNormal td:hover {
-        background-color: rgba( 0, 0, 0, 0.3);
-    }
+.tableNormal td:hover {
+    background-color: rgba( 0, 0, 0, 0.3);
+}
 
-    .tableNormal td:nth-child(1) {
-        border-right: 1px blue dotted;
-        border-bottom: 1px blue solid;
-        text-align: right;
-    }
+.tableNormal td:nth-child(1) {
+    border-right: 1px blue dotted;
+    border-bottom: 1px blue solid;
+    text-align: right;
+}
 
-    .tableNormal td:nth-child(2) {
-        text-align: left;
-        border-bottom: 1px blue solid;
-    }
+.tableNormal td:nth-child(2) {
+    text-align: left;
+    border-bottom: 1px blue solid;
+}
 
-    .tableNormal tr:nth-child(even) {
-        background-color: rgba( 50, 90, 204, 0.5);
-    }
+.tableNormal tr:nth-child(even) {
+    background-color: rgba( 50, 90, 204, 0.5);
+}
 
-    .tableNormal tr:nth-child(odd) {
-        background-color: rgba( 19, 34, 76, 0.5);
-    }
+.tableNormal tr:nth-child(odd) {
+    background-color: rgba( 19, 34, 76, 0.5);
+}
 
 #menuWrapper {
     left: 0px;
@@ -156,11 +156,11 @@ header {
     padding: 4px;
 }
 
-    header h1 {
-        text-align: center;
-        color: lightblue;
-        line-height: 20px;
-    }
+header h1 {
+    text-align: center;
+    color: lightblue;
+    line-height: 20px;
+}
 
 .menu {
     padding: 5px 0 5px 0;
@@ -186,18 +186,18 @@ ul.menu {
     font-variant: small-caps;
 }
 
-    .menu a:hover {
-        color: yellow;
-    }
+.menu a:hover {
+    color: yellow;
+}
 
 .container {
     position: relative;
     width: 50%;
 }
 
-    .container:hover .overlay {
-        opacity: 1;
-    }
+.container:hover .overlay {
+    opacity: 1;
+}
 
 .imageOverlay {
     display: block;
@@ -247,19 +247,22 @@ ul.menu {
     padding: 4px;
     font-size: 16px;
     font-weight: bold;
-    border:solid;
+    border: solid;
     border-color: blue;
-    border-width:2px;
+    border-width: 2px;
     border-radius: 5px;
     cursor: pointer;
 }
+
 .contexbtn:hover, .contexbtn:focus {
     background-color: cornflowerblue;
 }
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -268,15 +271,35 @@ ul.menu {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
+
 .dropdown-content button {
     width: 100%;
     padding: 6px 8px;
     text-decoration: none;
     display: block;
 }
+
 .dropdown-content button:hover {
     background-color: #cccccc;
 }
+
 .show {
     display: block;
+}
+
+.bluetext {
+    color: blue;
+}
+
+.largerfont {
+    font-weight: 900;
+}
+
+
+.layer {
+    max-width: 200px;
+    background-color: rgba(1,1,1,0.1);
+    text-align: center;
+    padding: 5px;
+    border: solid;
 }

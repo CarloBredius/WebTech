@@ -69,7 +69,7 @@
             <button onclick="reset()">Reset</button>
         </div>
     </aside>
-    <article id="changetext">
+    <article>
         <h2>Virtual Reality market share over the years</h2>
         <section id="changetext">
             <h3>In an interactive plot</h3>
@@ -77,16 +77,34 @@
             <p id="choiceboxes">Check which platforms should be seen:</p>
         </section>
     </article>
-    <!--<article onclick="propagate(1)">
+    <article>
         <h2>Event propagation</h2>
-        <section onclick="propagate(2)">
-            <h3>Used with buttons</h3>
-            <p onclick="propagate(3)">
-                <button onclick="propagate(4)">Pop-ups</button>
-                Explaining video: https://www.youtube.com/watch?v=6NMSCh3DJug
-            </p>
+        <section id="eventpropagation">
+            <h3>In a list</h3>
+            <div class="propagatelist">
+                <ul>
+                    <li id="item1">Blue item</li>
+                    <li id="item2">Blue and Bold item</li>
+                    <li id="item3">only Bold item (stop propagation)</li>
+                </ul>
+            </div>
         </section>
-    </article> -->
+        <section id="alerts">
+            <h3>With alerts</h3>
+            <p>
+                Click inside the layers, Alerts will pop up using the <button id="propButton">Bubbling</button> method.
+            </p>
+            <div id="layer 1" class="layer">
+                Layer 1
+                <div id="layer 2" class="layer">
+                    Layer 2
+                    <div id="layer 3" class="layer">
+                        Layer 3
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
     <footer>
         Authors:
         <ul>

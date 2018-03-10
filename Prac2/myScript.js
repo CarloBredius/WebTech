@@ -16,13 +16,14 @@ window.onclick = function (event) {
         }
     }
 }
+// Context menu options
 function Colorize() {
     document.getElementById("changetext").style.color = "red";
     document.getElementById("changetext").style.backgroundColor = "lightgreen";
 }
 
 function bold() {
-    document.getElementById("changetext").style.fontWeight = "900";
+    document.getElementById("changetext").style.fontWeight = "bold";
 }
 function underline() {
     document.getElementById("changetext").style.textDecoration = "underline";
@@ -32,11 +33,55 @@ function reset() {
     document.getElementById("changetext").removeAttribute('style');
 }
 
-function propagate(n) {    
-    document.addEventListener("click", function () {
-        alert("Number " + n);
-    }, false);
+// Boolean to toggel bubbling up or bubbling down
+
+function onClick () {
+    alert(this.getAttribute("id") + " click event handled");
 }
+
+// Event propagation
+$(document).ready(function () {
+    document.querySelector(".propagatelist").addEventListener("click", function (e) {
+        e.target.classList.toggle("bluetext");
+    });
+    document.getElementById("item2").addEventListener('click', function (e) {
+        e.target.classList.toggle('largerfont');
+    });
+    document.getElementById("item3").addEventListener('click', function (e) {
+        e.target.classList.toggle('largerfont');
+        e.stopPropagation();
+    });
+
+    // Values before a button is clicked
+    let bubbleUp = false;
+    var layers = document.getElementById("alerts").getElementsByTagName("div");
+    for (var i = 0; i < layers.length; i++) {
+        layers[i].addEventListener("click", onClick, false);
+    }
+    // When button is clicked
+    document.querySelector('#propButton').addEventListener('click', function (ev) {
+        bubbleUp = !bubbleUp;
+        let t = ev.target;
+        if (bubbleUp) {
+            t.innerHTML = "Capturing";
+            for (var i = 0; i < layers.length; i++) {
+                layers[i].removeEventListener("click", onClick, false);
+                layers[i].addEventListener("click", onClick, true);
+            }
+        }
+        else {
+            t.innerHTML = "Bubbling";
+            for (var i = 0; i < layers.length; i++) {
+                layers[i].removeEventListener("click", onClick, true);
+                layers[i].addEventListener("click", onClick, false);
+            }
+        }
+    });
+
+
+
+
+});
 
 // Graph using Flot
 $(function () {
@@ -87,7 +132,7 @@ $(function () {
             }
         }
     };
-    // Options for plot
+    // Plot options
     var options = {
         yaxis: {
             min: 0
@@ -181,11 +226,7 @@ $(function () {
         }).appendTo("body").fadeIn(200);
     }
 });
-
 // bron: https://infographic.statista.com/normal/chartoftheday_6677_the_worldwide_virtual_reality_market_is_set_to_be_huge_n.jpg
-function onTestClick(clr) {
-    var text = document.getElementById("clickText").style.color = clr;
-}
 
 
 
