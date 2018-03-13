@@ -32,8 +32,24 @@ function underline() {
 function reset() {
     document.getElementById("changetext").removeAttribute('style');
 }
+var text;
+function cutCopy(cut) {
+    //copy text from copyText area
+    text = document.getElementById("copyText");
+    // add range object to the selection
+    var range = document.createRange();
 
-// Boolean to toggel bubbling up or bubbling down
+    range.selectNode(text);
+    window.getSelection().addRange(range);
+    // Execute coy
+    document.execCommand('copy');
+    if (cut) {
+        document.getElementById("copyText").innerHTML = "";
+    }
+}
+function paste() {
+    document.getElementById("pasteText").innerHTML = text;
+}
 
 function onClick () {
     alert(this.getAttribute("id") + " click event handled");

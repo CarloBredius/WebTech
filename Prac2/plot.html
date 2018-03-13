@@ -67,6 +67,9 @@
             <button onclick="underline()">Underline</button>
             <button onclick="bold()">Bold</button>
             <button onclick="reset()">Reset</button>
+            <button onclick="cutCopy(0)">Copy</button>
+            <button onclick="cutCopy(1)">Cut</button>
+            <button onclick="paste()">Paste</button>
         </div>
     </aside>
     <article>
@@ -104,6 +107,19 @@
                     </div>
                 </div>
             </div>
+        </section>
+    </article>
+    <article>
+        <h2>Copy, cut and paste</h2>
+        <section>
+            <h3>Copy/cut area</h3>
+            Select data to copy or cut. <br />
+            <textarea id="copyText" cols="30" rows="3">Example text.</textarea><br />
+        </section>
+        <section>
+            <h3>Paste area</h3>
+            Area to automaticly paste in. <br />
+            <textarea id="pasteText" cols="30" rows="3">Default.</textarea><br />
         </section>
     </article>
     <footer>
