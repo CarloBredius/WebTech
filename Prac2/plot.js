@@ -1,4 +1,7 @@
-// JavaScript source code
+// JavaScript code for the plot page
+function onClick() {
+    alert(this.getAttribute("id") + " click event handled");
+}
 $(document).ready(function () {
     document.querySelector(".propagatelist").addEventListener("click", function (e) {
         e.target.classList.toggle("bluetext");
@@ -21,14 +24,14 @@ $(document).ready(function () {
     document.querySelector('#propButton').addEventListener('click', function (ev) {
         bubbleUp = !bubbleUp;
         let t = ev.target;
-        if (bubbleUp) {
+        if (bubbleUp) { // when capturing (bubbling down)
             t.innerHTML = "Capturing";
             for (var i = 0; i < layers.length; i++) {
                 layers[i].removeEventListener("click", onClick, false);
                 layers[i].addEventListener("click", onClick, true);
             }
         }
-        else {
+        else { // when bubbling up
             t.innerHTML = "Bubbling";
             for (var i = 0; i < layers.length; i++) {
                 layers[i].removeEventListener("click", onClick, true);

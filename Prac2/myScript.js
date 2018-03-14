@@ -72,16 +72,10 @@ function Copy() {
 function Cut() {
     document.execCommand("cut", false, true);
 }
-// https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Interact_with_the_clipboard
-// https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection
 function Paste() {
     document.execCommand("paste");
 }
 
-function onClick() {
-    alert(this.getAttribute("id") + " click event handled");
-}
-// https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
 // Event propagation
 $(document).ready(function () {
     // Context menu options
@@ -112,13 +106,15 @@ $(document).ready(function () {
     document.getElementById("greencolor").addEventListener("click", function () {
         changeSelection(3, "green");
     });
-
+    // Click to copy
     document.getElementById("copy").addEventListener("click", function () {
         changeSelection(4);
     });
+    // Click to cut
     document.getElementById("cut").addEventListener("click", function () {
         changeSelection(5);
     });
+    // Click to paste
     document.getElementById("paste").addEventListener("click", function () {
         changeSelection(6); // doesnt work for web content, TODO: zelf
     });
@@ -195,7 +191,7 @@ $(function () {
         }
     }
 
-    // Write code for checkboxes for each dataset
+    // Write code for checkboxes for each dataset, by generating code
     var choiceBoxes = $("#choiceboxes");
     $.each(dataset, function (key, val) {
         choiceBoxes.append("<br/><input type='checkbox' name='" + key +
@@ -267,7 +263,3 @@ $(function () {
         }).appendTo("body").fadeIn(200);
     }
 });
-// bron: https://infographic.statista.com/normal/chartoftheday_6677_the_worldwide_virtual_reality_market_is_set_to_be_huge_n.jpg
-
-
-
