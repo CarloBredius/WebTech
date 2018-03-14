@@ -8,9 +8,10 @@
     <script language="javascript" type="text/javascript" src="Libraries/jquery.js"></script>
     <script language="javascript" type="text/javascript" src="Libraries/jquery.flot.js"></script>
     <script type="text/javascript" src="myscript.js"></script>
+    <script type="text/javascript" src="plot.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
     <link rel="shortcut icon" type="image/x-icon" href="media/favicon.ico">
-    <title>Form and Function</title>
+    <title>Plot</title>
 </head>
 <body>
     <div id="menuWrapper">
@@ -61,15 +62,15 @@
         </a>
         <br />
         <br />
-        <button onclick="contextMenu()" class="contexbtn">Context menu</button>
+        <button id="contextmenu" class="contexbtn">Context menu</button>
         <div id="dropdown" class="dropdown-content">
-            <button onclick="Colorize()">Colorize</button>
-            <button onclick="underline()">Underline</button>
-            <button onclick="bold()">Bold</button>
-            <button onclick="reset()">Reset</button>
-            <button onclick="cutCopy(0)">Copy</button>
-            <button onclick="cutCopy(1)">Cut</button>
-            <button onclick="paste()">Paste</button>
+            <button id="colorize">Colorize</button>
+            <button id="underline">Underline</button>
+            <button id="bold">Bold</button>
+            <button id="reset">Reset</button>
+            <button id="copy">Copy</button>
+            <button id="cut">Cut</button>
+            <button id="paste">Paste</button>
         </div>
     </aside>
     <article>
@@ -111,6 +112,7 @@
     </article>
     <article>
         <h2>Copy, cut and paste</h2>
+        Special text areas is used for copying and pasting. This will specify what text should and what should not be able to be copied.
         <section>
             <h3>Copy/cut area</h3>
             Select data to copy or cut. <br />

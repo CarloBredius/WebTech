@@ -1,9 +1,4 @@
 // JavaScript source code
-
-function contextMenu() {
-    document.getElementById("dropdown").classList.toggle("show");
-}
-
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function (event) {
     if (!event.target.matches('.contexbtn')) {
@@ -16,87 +11,109 @@ window.onclick = function (event) {
         }
     }
 }
-// Context menu options
-function Colorize() {
-    document.getElementById("changetext").style.color = "red";
-    document.getElementById("changetext").style.backgroundColor = "lightgreen";
-}
 
-function bold() {
-    document.getElementById("changetext").style.fontWeight = "bold";
-}
-function underline() {
-    document.getElementById("changetext").style.textDecoration = "underline";
-}
-
-function reset() {
-    document.getElementById("changetext").removeAttribute('style');
-}
-var text;
-function cutCopy(cut) {
-    //copy text from copyText area
-    text = document.getElementById("copyText");
-    // add range object to the selection
-    var range = document.createRange();
-
-    range.selectNode(text);
-    window.getSelection().addRange(range);
-    // Execute coy
-    document.execCommand('copy');
-    if (cut) {
-        document.getElementById("copyText").innerHTML = "";
+function changeSelection(number) {
+    // Get Selection
+    var selection = window.getSelection();
+    if (selection.rangeCount && selection.getRangeAt) {
+        range = selection.getRangeAt(0);
     }
+    // using design mode on, because the design is gonna be changed
+    document.designMode = "on";
+    if (range) {
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+    // Choose what should be changed
+    switch (number) {
+        case 1: {
+            redColor();
+        }
+            break;
+        case 2: {
+            Underline();
+        }
+            break;
+        case 3: {
+            Bold();
+        }
+            break;
+        case 4: {
+            Clear();
+        }
+            break;
+        case 5: {
+            Copy();
+        }
+            break;
+        case 6: {
+            Cut();
+        }
+            break;
+        case 7: {
+            Paste();
+        }
+            break;
+        default:
+    }
+
+    // Set design mode to off
+    document.designMode = "off";
 }
-function paste() {
-    document.getElementById("pasteText").innerHTML = text;
+function redColor() {
+    document.execCommand("ForeColor", false, "red");
+}
+function Underline() {
+    document.execCommand("underline", false, true);
+
+}
+function Bold() {
+    document.execCommand("bold", false, true);
+}
+function Clear() {
+
+}
+function Copy() {
+    document.execCommand("copy", false, true);
+}
+function Cut() {
+    document.execCommand("cut", false, true);
+}
+function Paste() {
+    document.execCommand("paste", false, true);
 }
 
-function onClick () {
+function onClick() {
     alert(this.getAttribute("id") + " click event handled");
 }
-
+// https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
 // Event propagation
 $(document).ready(function () {
-    document.querySelector(".propagatelist").addEventListener("click", function (e) {
-        e.target.classList.toggle("bluetext");
+    // Context menu options
+    document.getElementById("contextmenu").addEventListener("click", function () {
+        document.getElementById("dropdown").classList.toggle("show");
     });
-    document.getElementById("item2").addEventListener('click', function (e) {
-        e.target.classList.toggle('largerfont');
+    document.getElementById("colorize").addEventListener("click", function () {
+        changeSelection(1);
     });
-    document.getElementById("item3").addEventListener('click', function (e) {
-        e.target.classList.toggle('largerfont');
-        e.stopPropagation();
+    document.getElementById("underline").addEventListener("click", function () {
+        changeSelection(2);
     });
-
-    // Values before a button is clicked
-    let bubbleUp = false;
-    var layers = document.getElementById("alerts").getElementsByTagName("div");
-    for (var i = 0; i < layers.length; i++) {
-        layers[i].addEventListener("click", onClick, false);
-    }
-    // When button is clicked
-    document.querySelector('#propButton').addEventListener('click', function (ev) {
-        bubbleUp = !bubbleUp;
-        let t = ev.target;
-        if (bubbleUp) {
-            t.innerHTML = "Capturing";
-            for (var i = 0; i < layers.length; i++) {
-                layers[i].removeEventListener("click", onClick, false);
-                layers[i].addEventListener("click", onClick, true);
-            }
-        }
-        else {
-            t.innerHTML = "Bubbling";
-            for (var i = 0; i < layers.length; i++) {
-                layers[i].removeEventListener("click", onClick, true);
-                layers[i].addEventListener("click", onClick, false);
-            }
-        }
+    document.getElementById("bold").addEventListener("click", function () {
+        changeSelection(3);
     });
-
-
-
-
+    document.getElementById("reset").addEventListener("click", function () {
+        changeSelection(4);
+    });
+    document.getElementById("copy").addEventListener("click", function () {
+        changeSelection(5);
+    });
+    document.getElementById("cut").addEventListener("click", function () {
+        changeSelection(6);
+    });
+    document.getElementById("paste").addEventListener("click", function () {
+        changeSelection(7); // doesnt work for web content, TODO: zelf
+    });
 });
 
 // Graph using Flot
