@@ -72,8 +72,10 @@ function Copy() {
 function Cut() {
     document.execCommand("cut", false, true);
 }
+// https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Interact_with_the_clipboard
+// https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection
 function Paste() {
-    document.execCommand("paste", false, true);
+    document.execCommand("paste");
 }
 
 function onClick() {
