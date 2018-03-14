@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="stylesheet.css">
     <link rel="shortcut icon" type="image/x-icon" href="media/favicon.ico">
     <title>Form and Function</title>
+<script type="text/javascript" src="myscript.js">
+    var Auditief = new InfoNode('Het auditieve deel', 'Test');
+    var Visueel = new InfoNode('Het visuele deel', 'Test');
+    var Vorm = new InfoNode('Vorm en Functie', 'Test');
+    Vorm.AddChild(Auditief);
+    Vorm.AddChild(Visueel);
+    Vorm.Generate();
+</script>
 </head>
 <body>
     <div id="menuWrapper">
@@ -69,7 +77,11 @@
             <button onclick="reset()">Reset</button>
         </div>
     </aside>
-    <article></article>
+    <article>
+        <script type="text/javascript" src="myscript.js">
+            Vorm.GiveTitleHTML();
+        </script>
+    </article>
 
     <footer>
         Authors:

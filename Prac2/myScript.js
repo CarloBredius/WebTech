@@ -103,7 +103,50 @@ $(document).ready(function () {
 $(function () {
     // Distance between bars
     var diff = 0.125;
-    // Data
+
+    class Node {
+        constructor(title) {
+            this.title = title;
+            this.childList = [];
+        }
+        AddChild(node) {
+            this.childList.push(node);
+        }
+        Generate() {
+            // display html here
+            var displayTitle = '<h3>' + title + '</h3>';
+            // run recursively for all children
+            this.childList.forEach(function (entry) {
+                entry.Generate();
+            });
+        }
+    }
+    // expand and collapse, knowledgebase met sub classes, ineen keer genereren css aanpassen mooier, html weghalen en toevoegen beter 
+    class InfoNode extends Node {
+        constructor(title, info) {
+            super(title);
+            this.info = info;
+            this.childList = [];
+            Alert(title);
+        }
+        Generate() {
+            Alert(this.title);
+            // display html here
+            var displayTitle = '<h3>' + title + '</h3>';
+            var displayInfo = '<p>' + info + '</p>';
+            // run recursively for all children
+            this.childList.forEach(function (entry) {
+                entry.Generate();
+            });
+        }
+        GiveTitleHTML() {
+            return '<h3>' + title + '</h3>';
+        }
+        GiveInfoHTML() {
+            return '<p>' + info + '</p>';
+        }
+    }
+
     var dataset = {
         "average": {
             label: "Average",
