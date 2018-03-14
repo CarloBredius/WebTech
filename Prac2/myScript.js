@@ -12,7 +12,7 @@ window.onclick = function (event) {
     }
 }
 
-function changeSelection(number) {
+function changeSelection(number, color) {
     // Get Selection
     var selection = window.getSelection();
     if (selection.rangeCount && selection.getRangeAt) {
@@ -27,15 +27,15 @@ function changeSelection(number) {
     // Choose what should be changed
     switch (number) {
         case 1: {
-            redColor();
+            Italic();
         }
             break;
         case 2: {
-            Underline();
+            Bold();
         }
             break;
         case 3: {
-            Bold();
+            Colorize(color);
         }
             break;
         case 4: {
@@ -56,11 +56,11 @@ function changeSelection(number) {
     // Set design mode to off
     document.designMode = "off";
 }
-function redColor() {
-    document.execCommand("ForeColor", false, "red");
+function Colorize(color) {
+    document.execCommand("ForeColor", false, color);
 }
-function Underline() {
-    document.execCommand("underline", false, true);
+function Italic() {
+    document.execCommand("italic", false, true);
 
 }
 function Bold() {
@@ -88,15 +88,31 @@ $(document).ready(function () {
     document.getElementById("contextmenu").addEventListener("click", function () {
         document.getElementById("dropdown").classList.toggle("show");
     });
-    document.getElementById("colorize").addEventListener("click", function () {
+    
+    document.getElementById("italic").addEventListener("click", function () {
         changeSelection(1);
     });
-    document.getElementById("underline").addEventListener("click", function () {
+    document.getElementById("bold").addEventListener("click", function () {
         changeSelection(2);
     });
-    document.getElementById("bold").addEventListener("click", function () {
-        changeSelection(3);
+
+    // Color menu options
+    document.getElementById("colormenu").addEventListener("click", function () {
+        document.getElementById("colordropdown").classList.toggle("show");
     });
+    document.getElementById("redcolor").addEventListener("click", function () {
+        changeSelection(3, "red");
+    });
+    document.getElementById("bluecolor").addEventListener("click", function () {
+        changeSelection(3, "blue");
+    });
+    document.getElementById("orangecolor").addEventListener("click", function () {
+        changeSelection(3, "orange");
+    });
+    document.getElementById("greencolor").addEventListener("click", function () {
+        changeSelection(3, "green");
+    });
+
     document.getElementById("copy").addEventListener("click", function () {
         changeSelection(4);
     });

@@ -242,27 +242,20 @@ ul.menu {
 
 /* Context menu */
 .contexbtn {
-    background-color: darkgrey;
-    color: blue;
     padding: 4px;
     font-size: 16px;
-    font-weight: bold;
     border: solid;
-    border-color: blue;
-    border-width: 2px;
-    border-radius: 5px;
+    border-color: black;
+    border-width: 1px;
     cursor: pointer;
 }
-
 .contexbtn:hover, .contexbtn:focus {
     background-color: cornflowerblue;
 }
-
 .dropdown {
     position: relative;
     display: inline-block;
 }
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -271,18 +264,15 @@ ul.menu {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
-
 .dropdown-content button {
     width: 100%;
     padding: 6px 8px;
     text-decoration: none;
     display: block;
 }
-
 .dropdown-content button:hover {
     background-color: #cccccc;
 }
-
 .show {
     display: block;
 }
@@ -290,11 +280,9 @@ ul.menu {
 .bluetext {
     color: blue;
 }
-
 .largerfont {
     font-weight: 900;
 }
-
 
 .layer {
     max-width: 200px;
