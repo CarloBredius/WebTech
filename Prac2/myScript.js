@@ -39,18 +39,14 @@ function changeSelection(number) {
         }
             break;
         case 4: {
-            Clear();
-        }
-            break;
-        case 5: {
             Copy();
         }
             break;
-        case 6: {
+        case 5: {
             Cut();
         }
             break;
-        case 7: {
+        case 6: {
             Paste();
         }
             break;
@@ -69,9 +65,6 @@ function Underline() {
 }
 function Bold() {
     document.execCommand("bold", false, true);
-}
-function Clear() {
-
 }
 function Copy() {
     document.execCommand("copy", false, true);
@@ -102,17 +95,14 @@ $(document).ready(function () {
     document.getElementById("bold").addEventListener("click", function () {
         changeSelection(3);
     });
-    document.getElementById("reset").addEventListener("click", function () {
+    document.getElementById("copy").addEventListener("click", function () {
         changeSelection(4);
     });
-    document.getElementById("copy").addEventListener("click", function () {
+    document.getElementById("cut").addEventListener("click", function () {
         changeSelection(5);
     });
-    document.getElementById("cut").addEventListener("click", function () {
-        changeSelection(6);
-    });
     document.getElementById("paste").addEventListener("click", function () {
-        changeSelection(7); // doesnt work for web content, TODO: zelf
+        changeSelection(6); // doesnt work for web content, TODO: zelf
     });
 });
 
