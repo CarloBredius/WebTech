@@ -10,8 +10,13 @@ ul.menu {
 	margin-top: 15px;
 }
 
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+}
+
 .menu li {
-	display: inline;
-	padding: 0 20px 0 20px;
-	font-size: 16px;
+    display: inline;
+    padding: 0 20px 0 20px;
 }

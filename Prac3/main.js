@@ -1,27 +1,23 @@
 #!/usr/bin/env nodejs
 
 var http = require('http');
-var filesystem = require('fs');
+var express = require('express');
+var app = express();
+app.use("/media", express.static(__dirname + "/media"));
 
 http.createServer(function (req, res) {
     handleRequests(req, res);
 
-    var filePath = path.join("media", 'Hololens.png');
-    var stat = fileSystem.statSync(filePath);
-
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-
+    res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end('Hello group 56.\n');
-
 }).listen(8051, 'localhost');
 
 function handleRequests(req, res) {
-    console.log(req);
-
     switch (req) {
         case "GET":
             // respond met object en alle cases of dat object er is, of het mag etc.
             // hier komt een <head> en een <body>
+            console.log(req.url);
             break;
         case "HEAD":
             break;
@@ -39,4 +35,8 @@ function handleRequests(req, res) {
             break;
         default:
     }
+}
+
+function handleResources(req, res) {
+
 }
