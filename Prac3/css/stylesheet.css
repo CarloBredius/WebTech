@@ -36,3 +36,26 @@ aside {
     border-color: blue;
     box-shadow: -1px 1px 8px black;
 }
+
+table td {
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid black;
+    border-width: 1px;
+    position: center;
+    margin: 0px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+td {
+    text-align:center;
+}
+td button{
+    margin:auto;
+    display:block;
+    bottom:100px;
+}
