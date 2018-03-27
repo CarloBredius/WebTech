@@ -1,9 +1,11 @@
 /* webshop stylesheet */
 .menu {
-	padding: 5px 0 5px 0;
-	text-align: center;
-	line-height: 32px;
-	background-color: blue;
+    margin: 0px;
+    padding: 5px 0 5px 0;
+    text-align: center;
+    line-height: 32px;
+    background-color: blue;
+    box-shadow: -1px 1px 8px black;
 }
 
 ul.menu {
@@ -19,4 +21,18 @@ ul.menu {
 .menu li {
     display: inline;
     padding: 0 20px 0 20px;
+}
+
+aside {
+    position: fixed;
+    right: 8px;
+    background-color: lightblue;
+    position: fixed;
+    padding: 10px;
+    border-radius: 0 0 25px 25px;
+    border: solid;
+    border-top: none;
+    border-width: 3px;
+    border-color: blue;
+    box-shadow: -1px 1px 8px black;
 }
