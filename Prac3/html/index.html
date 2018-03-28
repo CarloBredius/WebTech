@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav>
-        <ul class="menu">
+        <ul>
             <li><a href="index.html"><strong>Startpagina</strong></a> </li>
             <li><a href="contact.html">Contact</a> </li>
         </ul>
@@ -17,7 +17,7 @@
     <aside>
         <form>
             <!-- kan value veranderen met informatie uit een cookie (bv. de vorige RB) -->
-            User name:<br />
+            Username:<br />
             <input type="text" name="username" value="CarloBredius" />
             <br />
             Password:<br />
@@ -25,30 +25,83 @@
             <br />
             <input type="submit" value="Log in" />
         </form>
+        No account yet?
+        <a href="register.html">register</a><br />
     </aside>
-    <h1>Web Shop</h1>
-    <article>
-        Data ophalen van database<br />
-        <table>
-            <tr>
-                <td>
-                    <h2>Hololens</h2>
-                    <img src="media/Hololens.png" alt="Hololens"><br />
-                    The future in glasses <br />
-                    $3000,- <br />
-                    Microsoft <br />
-                    <button>Buy</button>
-                </td>
-                <td>
-                    <h2>Vive</h2>
-                    <img src="media/Vive.jpg" alt="Vive"><br />
-                    Gaming glasses<br />
-                    $439,-<br />
-                    HTC <br />
-                    <button>Buy</button>
-                </td>
-            </tr>
-        </table>
-    </article>
+    <content>
+        <h1>Web Shop</h1>
+        <section>
+            Data ophalen van database. Web semantics halen van <a href="http://schema.org/">schema</a>.<br />
+            <p>
+                <input type="text" name="search" placeholder="Title" /><button>Search</button>
+            </p>
+            <p>
+                Filter on
+                <select name="filter">
+                    <option value="category">Category</option>
+                    <option value="manufacturer">Manufacturer</option>
+                </select>
+            </p>
+            <p>
+                Sort by
+                <select name="sort">
+                    <option value="price">Price</option>
+                    <option value="title">Title</option>
+                </select>
+            </p>
+            <article>
+                <h2>Hololens</h2>
+                <img src="media/Hololens.png" alt="Hololens"><br />
+                The future in glasses <br />
+                $3000,- <br />
+                Microsoft <br />
+                <button>Buy</button>
+            </article>
+            <article>
+                <h2>Vive</h2>
+                <img src="media/Vive.jpg" alt="Vive"><br />
+                Gaming glasses.<br />
+                $439,-<br />
+                HTC <br />
+                <button>Buy</button>
+            </article>
+            <article>
+                <h2>Oculus right</h2>
+                <img src="media/OculusRift.jpg" alt="Oculus rift"><br />
+                Gaming glasses.<br />
+                $421,-<br />
+                Oculus VR<br />
+                <button>buy</button>
+            </article>
+            <article>
+                <h2>PSVR</h2>
+                <img src="media/PSVR.jpg" alt="PSVR"><br />
+                Gaming glasses.<br />
+                $204,-<br />
+                Sony Corporation <br />
+                <button>buy</button>
+            </article>
+            <article>
+                <h2>VirtuixOmni</h2>
+                <img src="media/VirtuixOmni.png" alt="VirtuixOmni"><br />
+                Active virtual reality motion platform.<br />
+                $699,-<br />
+                Virtuix<br />
+                <button>buy</button>
+            </article>
+            <article>
+                <h2>Google Cardboard</h2>
+                <img src="media/cardboard.png" alt="cardboard"><br />
+                Virtual reality in a simple, fun, and affordable way.<br />
+                $15,-<br />
+                Google<br />
+                <button>buy</button>
+            </article>
+            <p>
+                <!-- Gebruik AJAX call om de volgende 10 producten op te vragen-->
+                <button>more</button>
+            </p>
+        </section>
+    </content>
 </body>
 </html>
