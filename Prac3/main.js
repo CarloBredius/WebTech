@@ -139,5 +139,7 @@ function readDB(db, table) {
     //db.close();
 }
 
+db.close();
+
 // Onderaan houden
 http.createServer(app).listen(8051, 'localhost');
