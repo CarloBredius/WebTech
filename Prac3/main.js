@@ -56,43 +56,48 @@ Hololens = new Product("Hololens", "Looking into the future", "$3000,-", "Virtua
 Carlo = new User("Carlo", "test", "address", "3571AD", "c.bredius@live.nl");
 
 // Connect to the DB file
-var db = new sqlite3.Database(file);
-createTables(db);
-insertIntoUserDB(Carlo);
-insertIntoProductDB(Hololens);
-readDB(db, "Users");
-readDB(db, "Products");
+function connectToDB() {
+    return new sqlite3.Database(file);
+}
 
+var db = connectToDB();
+db.serialize(function () {
+    createTables();
+    insertIntoUserDB(Carlo);
+    insertIntoProductDB(Hololens);
+    readDB("Users");
+    readDB("Products");
+});
+db.close();
 
-function createTables(db) {
+function createTables() {
     // serialized mode
     db.serialize(function () {
         // if new DB file
         if (!exists) {
+            // create tables, not accepting duplicate (names)
             db.run("CREATE TABLE Users " +
-                "(name TEXT NOT NULL, " +
+                "(name TEXT NOT NULL PRIMARY KEY, " +
                 "password TEXT NOT NULL, " +
                 "address TEXT NOT NULL, " +
                 "zipcode TEXT NOT NULL, " +
                 "email TEXT NOT NULL)");
-
             db.run("CREATE TABLE Products " +
-                "(name TEXT NOT NULL, " +
+                "(name TEXT NOT NULL PRIMARY KEY, " +
                 "description TEXT NOT NULL, " +
-                "price INTEGER NOT NULL, " + 
+                "price INTEGER NOT NULL, " +
                 "category TEXT NOT NULL, " +
                 "manufacturer TEXT NOT NULL, " +
                 "image TEXT NOT NULL)");
 
-            console.log("tables created \n");
+            console.log("Tables created \n");
         }
     });
-    //db.close();
 }
 // insert user into database
 function insertIntoUserDB(user) {
+
     db.serialize(function () {
-        // TODO: if already exists
         db.run("INSERT INTO Users(name, password, address, zipcode, email) " +
             "VALUES('" + user.name +
             "', '" + user.password +
@@ -100,10 +105,10 @@ function insertIntoUserDB(user) {
             "', '" + user.zipcode +
             "', '" + user.email + "')",
             function (err) {
-            if (err) {
-                return console.log(err.message);
-            }
-        });
+                if (err) {
+                    return console.log(err.message);
+                }
+            });
     });
 }
 // insert user into database
@@ -125,7 +130,7 @@ function insertIntoProductDB(product) {
     });
 }
 
-function readDB(db, table) {
+function readDB(table) {
     db.each("SELECT * FROM " + table, function (error, row) {
         if (error) {
             console.log(error);
@@ -135,11 +140,7 @@ function readDB(db, table) {
         }
         console.log("\n");
     });
-    // TODO: check how and when to open and close database
-    //db.close();
 }
-
-db.close();
 
 // Onderaan houden
 http.createServer(app).listen(8051, 'localhost');
