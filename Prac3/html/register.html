@@ -10,10 +10,10 @@
 <body>
     <h1>Register</h1>
     <article>
-        <form>
+        <form action="/register" method="post">
             <p>
                 <label>Name:</label>
-                <input id="name" type="text" placeholder="What is your name?" />
+                <input id="username" type="text" placeholder="What is your name?" />
             </p>
             <p>
                 <label>Address:</label>
@@ -28,10 +28,6 @@
                 <input id="email" type="email"placeholder="What is your email?" />
             </p>
             <p>
-                <label>Username:</label>
-                <input id="username" type="text" placeholder="What username would you like?" />
-            </p>
-            <p>
                 <label>Password:</label>
                 <input id="password" type="password" placeholder="What password would you like?" />
             </p>
@@ -41,7 +37,7 @@
             </p>
             <p>
                 <label> </label>
-                <input id="submit" type="submit" value="Submit" />
+                <button id="submit">submit</button>
             </p>
             <p>
                 <br />

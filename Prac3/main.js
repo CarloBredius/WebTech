@@ -3,7 +3,13 @@
 var http = require('http');
 var express = require('express');
 var session = require('client-sessions');
+var register = require('./serverSide/registerServer');
+
 var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 
 // stuff to work with database safer
 var fs = require("fs");
@@ -21,27 +27,20 @@ app.use("/", express.static(__dirname + "/html"));
 app.use("/media", express.static(__dirname + "/media"));
 // allow usage of stylesheets in css folder
 app.use("/css", express.static(__dirname + "/css"));
+// allow usage of separate javascript files in javascript folder
+//app.use("/javascript", express.static(__dirname + "/javascript"));
 
 // use session  for handling log in
 // https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions
 app.use(session({
     cookieName: 'session',
-    secret: 'random_string_goes_here',
+    secret: 'mashedpotato',
     // total time before cookie needcs to be set again
     duration: 30 * 60 * 1000,
     // extend duration when the use sends anotehr request
     activeDuration: 5 * 60 * 1000,
 }));
 
-class User {
-    constructor(name, password, address, zipcode, email) {
-        this.name = name;
-        this.password = password;
-        this.address = address;
-        this.zipcode = zipcode;
-        this.email = email;
-    }
-}
 class Product {
     constructor(name, description, price, category, manufacturer, image) {
         this.name = name;
@@ -53,7 +52,8 @@ class Product {
     }
 }
 Hololens = new Product("Hololens", "Looking into the future", "$3000,-", "Virtual Reality", "Microsoft", "Hololens.png");
-Carlo = new User("Carlo", "test", "address", "3571AD", "c.bredius@live.nl");
+//Carlo = new User("Carlo", "test", "address", "3571AD", "c.bredius@live.nl");
+
 
 // Connect to the DB file
 function connectToDB() {
@@ -63,7 +63,7 @@ function connectToDB() {
 var db = connectToDB();
 db.serialize(function () {
     createTables();
-    insertIntoUserDB(Carlo);
+    //insertIntoUserDB(Carlo);
     insertIntoProductDB(Hololens);
     readDB("Users");
     readDB("Products");
@@ -94,23 +94,7 @@ function createTables() {
         }
     });
 }
-// insert user into database
-function insertIntoUserDB(user) {
 
-    db.serialize(function () {
-        db.run("INSERT INTO Users(name, password, address, zipcode, email) " +
-            "VALUES('" + user.name +
-            "', '" + user.password +
-            "', '" + user.address +
-            "', '" + user.zipcode +
-            "', '" + user.email + "')",
-            function (err) {
-                if (err) {
-                    return console.log(err.message);
-                }
-            });
-    });
-}
 // insert user into database
 function insertIntoProductDB(product) {
     db.serialize(function () {
@@ -142,5 +126,32 @@ function readDB(table) {
     });
 }
 
+class User {
+    constructor(name, password, address, zipcode, email) {
+        this.name = name;
+        this.password = password;
+        this.address = address;
+        this.zipcode = zipcode;
+        this.email = email;
+    }
+}
+
 // Onderaan houden
 http.createServer(app).listen(8051, 'localhost');
+// https://stackoverflow.com/questions/24755452/nodejs-req-body-undefined-in-post-with-express-4-x?rq=1
+app.post("/register", function (req, res) {
+
+    console.log(req.body);
+    //var name = req.body.name;
+    //var password = req.body.password;
+    //var address = req.body.address;
+    //this.zipcode = req.body.zipcode;
+    //this.email = req.body.email;
+    //
+    //newUser = new User(name, passwor, address, zipcode, email);
+    //console.log(req.body.name);
+    //
+    //register.insertUser(newUser);
+
+    //res.send({ status: 'User registered.' });
+});
