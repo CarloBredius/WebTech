@@ -3,13 +3,15 @@
 var http = require('http');
 var express = require('express');
 var session = require('client-sessions');
+const bodyParser = require('body-parser');
+//var db = require('db');
+
 var register = require('./serverSide/registerServer');
 
-var app = express();
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
+var app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // stuff to work with database safer
 var fs = require("fs");
@@ -19,7 +21,7 @@ if (!exists) {
     fs.openSync(file, "w");
 }
 //import SQLite3
-var sqlite3 = require("sqlite3").verbose();
+const sqlite3 = require("sqlite3").verbose();
 
 // allow usage of html pages in html folder
 app.use("/", express.static(__dirname + "/html"));
@@ -63,8 +65,7 @@ function connectToDB() {
 var db = connectToDB();
 db.serialize(function () {
     createTables();
-    //insertIntoUserDB(Carlo);
-    insertIntoProductDB(Hololens);
+    //insertIntoProductDB(Hololens);
     readDB("Users");
     readDB("Products");
 });
@@ -135,23 +136,47 @@ class User {
         this.email = email;
     }
 }
-
-// Onderaan houden
-http.createServer(app).listen(8051, 'localhost');
-// https://stackoverflow.com/questions/24755452/nodejs-req-body-undefined-in-post-with-express-4-x?rq=1
+// Using ajax
 app.post("/register", function (req, res) {
+    var name = req.body.name;
+    var password = req.body.password;
+    var repassword = req.body.repassword;
+    var address = req.body.address;
+    this.zipcode = req.body.zipcode;
+    this.email = req.body.email;
+    console.log("New user data: " + name + ' ' + password + ' ' + address + ' ' + zipcode + ' ' + email);
 
-    console.log(req.body);
-    //var name = req.body.name;
-    //var password = req.body.password;
-    //var address = req.body.address;
-    //this.zipcode = req.body.zipcode;
-    //this.email = req.body.email;
-    //
-    //newUser = new User(name, passwor, address, zipcode, email);
-    //console.log(req.body.name);
-    //
-    //register.insertUser(newUser);
+    if (password === repassword) {
+        console.log("Passwords match.");
+        newUser = new User(name, password, address, zipcode, email);
+        res.redirect(200, "index.html");
 
-    //res.send({ status: 'User registered.' });
+        // open database file
+        var db = connectToDB();
+        register.insertUser(db, newUser);
+        db.close();
+    }
+    else {
+        console.log("passwords do not match.");
+        res.redirect(400, "register.html");
+    }
 });
+app.post("/login", function (req, res) {
+    var user = req.body.username;
+    var pass = req.body.password;
+
+    var sql = "SELECT * FROM Users WHERE name = '" + user + "' AND password = '" + pass + "'";
+    console.log("Input for SQL: " + sql);
+    //db.query(sql, [user, pass], function (err, results) {
+    //    console.log(user, pass);
+    //});
+
+    var db = connectToDB();
+    db.run(sql);
+    //register.checkUser(db, user, pass);
+    db.close();
+
+});
+
+// Create the server
+http.createServer(app).listen(8051, 'localhost');

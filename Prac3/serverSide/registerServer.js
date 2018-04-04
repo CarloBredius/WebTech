@@ -1,15 +1,21 @@
 // server side register
-//var db = new sqlite3.Database(file);
 
 module.exports = {
-    insertUser: insertIntoUserDB
+    insertUser: insertIntoUserDB,
+    checkUser: checkUserInDB
 }
 
-// insert user into database
-function insertIntoUserDB(user) {
+function checkUserInDB(db, name, pass) {
+    var sql = "SELECT * FROM users WHERE user = '" + name + "' AND pass = '" + pass + "'";
 
-    Console.log("potato");
-    // TODO: secutiry against injections
+    connection.query(sql, function (err, results) {
+        console.log(results);
+        console.log(err);
+    });
+}
+// insert user into database
+function insertIntoUserDB(db, user) {
+    // TODO: security against injections
     db.serialize(function () {
         db.run("INSERT INTO Users(name, password, address, zipcode, email) " +
             "VALUES('" + user.name +
