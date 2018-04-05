@@ -62,14 +62,15 @@ function connectToDB() {
     return new sqlite3.Database(file);
 }
 
-var db = connectToDB();
-db.serialize(function () {
-    createTables();
-    //insertIntoProductDB(Hololens);
-    readDB("Users");
-    readDB("Products");
-});
-db.close();
+// Checking db
+//var db = connectToDB();
+//db.serialize(function () {
+//    //createTables();
+//    //insertIntoProductDB(Hololens);
+//    //readDB("Users");
+//    //readDB("Products");
+//});
+//db.close();
 
 function createTables() {
     // serialized mode
@@ -161,6 +162,7 @@ app.post("/register", function (req, res) {
         res.redirect(400, "register.html");
     }
 });
+// log in procedure
 app.post("/login", function (req, res) {
     var user = req.body.username;
     var pass = req.body.password;
@@ -175,8 +177,28 @@ app.post("/login", function (req, res) {
     db.run(sql);
     //register.checkUser(db, user, pass);
     db.close();
-
 });
+
+app.get("/products", function (req, res) {
+    // open the database
+    let db = new sqlite3.Database(file);
+    let sql = "SELECT * FROM Products ORDER BY " + order;
+
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            throw err;
+        }
+        rows.forEach((row) => {
+            //give back values for article in html
+            console.log(row);
+            //res.send(row);
+        });
+    });
+
+    // close the database connection
+    db.close();
+});
+
 
 // Create the server
 http.createServer(app).listen(8051, 'localhost');
