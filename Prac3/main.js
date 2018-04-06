@@ -6,7 +6,7 @@ var session = require('client-sessions');
 const bodyParser = require('body-parser');
 //var db = require('db');
 
-var register = require('./serverSide/registerServer');
+var database = require('./serverSide/database');
 
 
 var app = express();
@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // stuff to work with database safer
 var fs = require("fs");
-var file = __dirname + "/" + "Database.db";
+var file = __dirname + "/serverSide/Database.db";
 var exists = fs.existsSync(file);
 if (!exists) {
     fs.openSync(file, "w");
@@ -24,13 +24,13 @@ if (!exists) {
 const sqlite3 = require("sqlite3").verbose();
 
 // allow usage of html pages in html folder
-app.use("/", express.static(__dirname + "/html"));
+app.use("/", express.static(__dirname + "/public/html"));
 // allow usage of pictures in media folder
-app.use("/media", express.static(__dirname + "/media"));
+app.use("/public/media", express.static(__dirname + "/public/media"));
 // allow usage of stylesheets in css folder
-app.use("/css", express.static(__dirname + "/css"));
+app.use("/css", express.static(__dirname + "/public/css"));
 // allow usage of separate javascript files in javascript folder
-app.use("/javascript", express.static(__dirname + "/javascript"));
+app.use("/javascript", express.static(__dirname + "/public/javascript"));
 
 // use session  for handling log in
 // https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions
@@ -155,7 +155,7 @@ app.post("/register", function (req, res) {
 
         // open database file
         var db = connectToDB();
-        register.insertUser(db, newUser);
+        database.insertUser(db, newUser);
         db.close();
     }
     else {
@@ -185,7 +185,6 @@ app.get("/products", function (req, res) {
     let db = new sqlite3.Database(file);
     let sql = "SELECT * FROM Products ORDER BY ? LIMIT ? "; // 
     var jsonData = {};
-    console.log(req.query);
     db.all(sql, [req.query.orderby, req.query.amount], (err, rows) => {
         jsonData = JSON.stringify(rows);
         res.writeHead(200, { "Content-Type": "application/json"});
@@ -194,9 +193,8 @@ app.get("/products", function (req, res) {
             throw err;
         }
         rows.forEach((row) => {
-            //give back values for article in html
+            //Log each row
             console.log(row);
-            //res.send(row);
         });
     });
 

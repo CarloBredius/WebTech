@@ -37,18 +37,20 @@
         <section>
             Data ophalen van database. Web semantics halen van <a href="http://schema.org/">schema</a>.<br />
             <p>
-                <input type="text" name="search" placeholder="Title" /><button>Search</button>
+                <input type="text" name="search" placeholder="Title" />
+                <button id="search">Search</button>
             </p>
             <p>
                 Filter on
-                <select name="filter">
+                <select id="filter">
+                    <option value="none">None</option>
                     <option value="category">Category</option>
                     <option value="manufacturer">Manufacturer</option>
                 </select>
             </p>
             <p>
-                Sort by
-                <select name="sort">
+                Order by
+                <select id="order">
                     <option value="price">Price</option>
                     <option value="title">Title</option>
                 </select>
