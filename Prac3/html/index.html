@@ -6,6 +6,10 @@
     <link rel="shortcut icon" type="image/x-icon" href="media/favicon.ico">
     <link rel="stylesheet" href="css/stylesheet.css">
     <title>WebShop</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="javascript/clientSide.js"></script>
 </head>
 <body>
     <nav>
@@ -49,57 +53,12 @@
                     <option value="title">Title</option>
                 </select>
             </p>
-            <article>
-                <h2>Hololens</h2>
-                <img src="media/Hololens.png" alt="Hololens"><br />
-                The future in glasses <br />
-                $3000,- <br />
-                Microsoft <br />
-                <button>Buy</button>
-            </article>
-            <article>
-                <h2>Vive</h2>
-                <img src="media/Vive.jpg" alt="Vive"><br />
-                Gaming glasses.<br />
-                $439,-<br />
-                HTC <br />
-                <button>Buy</button>
-            </article>
-            <article>
-                <h2>Oculus right</h2>
-                <img src="media/OculusRift.jpg" alt="Oculus rift"><br />
-                Gaming glasses.<br />
-                $421,-<br />
-                Oculus VR<br />
-                <button>buy</button>
-            </article>
-            <article>
-                <h2>PSVR</h2>
-                <img src="media/PSVR.jpg" alt="PSVR"><br />
-                Gaming glasses.<br />
-                $204,-<br />
-                Sony Corporation <br />
-                <button>buy</button>
-            </article>
-            <article>
-                <h2>VirtuixOmni</h2>
-                <img src="media/VirtuixOmni.png" alt="VirtuixOmni"><br />
-                Active virtual reality motion platform.<br />
-                $699,-<br />
-                Virtuix<br />
-                <button>buy</button>
-            </article>
-            <article>
-                <h2>Google Cardboard</h2>
-                <img src="media/cardboard.png" alt="cardboard"><br />
-                Virtual reality in a simple, fun, and affordable way.<br />
-                $15,-<br />
-                Google<br />
-                <button>buy</button>
-            </article>
+            <section id="showproducts">
+
+            </section>
             <p>
                 <!-- Gebruik AJAX call om de volgende 10 producten op te vragen-->
-                <button>more</button>
+                <button id="more">more</button>
             </p>
         </section>
     </content>

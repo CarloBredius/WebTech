@@ -30,10 +30,11 @@ app.use("/media", express.static(__dirname + "/media"));
 // allow usage of stylesheets in css folder
 app.use("/css", express.static(__dirname + "/css"));
 // allow usage of separate javascript files in javascript folder
-//app.use("/javascript", express.static(__dirname + "/javascript"));
+app.use("/javascript", express.static(__dirname + "/javascript"));
 
 // use session  for handling log in
 // https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions
+// TODO: wanneer log in, cookie appenden met username and encrypted password (zoek voor express)
 app.use(session({
     cookieName: 'session',
     secret: 'mashedpotato',
@@ -182,9 +183,13 @@ app.post("/login", function (req, res) {
 app.get("/products", function (req, res) {
     // open the database
     let db = new sqlite3.Database(file);
-    let sql = "SELECT * FROM Products ORDER BY " + order;
-
-    db.all(sql, [], (err, rows) => {
+    let sql = "SELECT * FROM Products ORDER BY ? LIMIT ? "; // 
+    var jsonData = {};
+    console.log(req.query);
+    db.all(sql, [req.query.orderby, req.query.amount], (err, rows) => {
+        jsonData = JSON.stringify(rows);
+        res.writeHead(200, { "Content-Type": "application/json"});
+        res.end(jsonData);
         if (err) {
             throw err;
         }
