@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 
 var database = require('./serverSide/database');
 
-
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -180,12 +179,23 @@ app.post("/login", function (req, res) {
     db.close();
 });
 
+// Parameterize in expressions don't work in sqlite3 so use whitelist
+// source: https://stackoverflow.com/questions/25374386/parameterizing-limit-and-order-in-sqlite3
+function whitelist(word) {
+    var list = ["name", "price", "category", "description", "manufacturer"]
+    return (list.indexOf(word) >= 0);
+}
+
 app.get("/products", function (req, res) {
     // open the database
     let db = new sqlite3.Database(file);
-    let sql = "SELECT * FROM Products ORDER BY ? LIMIT ? "; // 
+    // check if orderby is on whitelist
+    if (!whitelist(req.query.orderby)) {
+        throw Error("Not on whitelist");
+    }
+    let sql = "SELECT * FROM Products ORDER BY " + req.query.orderby + " LIMIT ? ";
     var jsonData = {};
-    db.all(sql, [req.query.orderby, req.query.amount], (err, rows) => {
+    db.all(sql, req.query.amount, (err, rows) => {
         jsonData = JSON.stringify(rows);
         res.writeHead(200, { "Content-Type": "application/json"});
         res.end(jsonData);

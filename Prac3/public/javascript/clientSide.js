@@ -5,7 +5,16 @@ var filter = "none";
 
 $(document).ready(function () {
     document.getElementById("more").addEventListener("click", function () {
-        productAmount += 10;
+        // change if database size changes, (Could Do: get dbsize instead of hardcode with get)
+        if (productAmount <= 20) {
+            productAmount += 10;
+        }
+        GetProducts();
+    });
+    document.getElementById("less").addEventListener("click", function () {
+        if (productAmount >= 10) {
+            productAmount -= 10;
+        }
         GetProducts();
     });
     // TODO: Search bar or filter 
@@ -34,10 +43,11 @@ function GetProducts() {
                 str += "<article>" +
                     "<h2>" + result[i].name + "</h2>" +
                     "<img src='public/media/" + result[i].image + "' alt='" + result[i].name + "'><br />" +
-                    result[i].description + "<br />" +
-                    result[i].price + "<br />" +
-                    result[i].manufacturer + "<br />" +
-                    "<button>buy</button>" +
+                    "Category: " + result[i].category + "<br />" +
+                    "Description: " + result[i].description + "<br />" +
+                    "Price: " + result[i].price + "<br />" +
+                    "Manufacturer: " + result[i].manufacturer + "<br />" +
+                    "<button>Buy</button>" +
                     "</article>";
             }
             $("#showproducts").html(str);

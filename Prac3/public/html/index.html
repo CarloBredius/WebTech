@@ -51,16 +51,21 @@
             <p>
                 Order by
                 <select id="order">
+                    <option value="name">Name</option>
+                    <option value="category">Category</option>
+                    <option value="description">Description</option>
                     <option value="price">Price</option>
-                    <option value="title">Title</option>
+                    <option value="manufacturer">Manufacturer</option>
                 </select>
             </p>
             <section id="showproducts">
 
             </section>
             <p>
+                <!-- use AJAX for more or less products -->
+                <button id="less">Less</button>
                 <!-- Gebruik AJAX call om de volgende 10 producten op te vragen-->
-                <button id="more">more</button>
+                <button id="more">More</button>
             </p>
         </section>
     </content>
