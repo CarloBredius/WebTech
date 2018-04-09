@@ -8,17 +8,29 @@ $(document).ready(function () {
     // Fill screen with 10 products initially
     GetProducts();
 
-    // TODO: Search bar or filter 
     document.getElementById("search").addEventListener("click", function (evt) {
         searchProduct = document.getElementById("lookup").value;
         console.log(this.id + ": " + searchProduct);
         GetProducts();
     });
-    document.getElementById("filter").addEventListener("change", function (evt) {
-        filter = this.value;
-        console.log(this.id + ": " +  filter); // TODO: delete before submitting
-        GetProducts();
+
+    // Give buttons functionality
+    $("#showproducts").on("click", "button", function () {
+        var productId = $(this).parent().attr('data-productId');
+        //var productPrice = $(this).parent().children("#price");
+        var txt;
+        var buy = confirm("Are you sure you want to buy " + productId + "?");
+        if (buy == true) {
+            //TODO: get user from session
+            txt = productId + " is added to " + "logged-in user" + " history.";
+            // Store product in bought history
+        }
+        else {
+            txt = "Declined"
+        }
+        alert(txt);
     });
+
     document.getElementById("order").addEventListener("change", function (evt) {
         ordered = this.value;
         console.log(this.id + ": " + ordered); // TODO: delete before submitting
@@ -40,19 +52,6 @@ $(document).ready(function () {
     });
 });
 
-// Can't change labels to something other than OK and cancel
-// Source: https://stackoverflow.com/questions/22885897/javascript-rename-confirm-buttons
-function buyProduct() {
-    var r = confirm("Are you sure you want to buy " /*+ productName*/ + "?");
-    if (r) {
-        // put product in bought history
-        alert("Product added to bought history");
-    } else {
-        // do nothing when canceled (delete else)
-        alert("You pressed cancel");
-    }
-}
-
 function GetProducts() {
     $.ajax({
         method: "GET",
@@ -62,14 +61,14 @@ function GetProducts() {
         success: function (result) {
             str = "";
             for (var i = 0; i < result.length; i++) {
-                str += "<article>" +
+                str += "<article data-productId='" + result[i].name + "'>" +
                     "<h2>" + result[i].name + "</h2>" +
                     "<img src='public/media/" + result[i].image + "' alt='" + result[i].name + "'><br />" +
                     "Category: " + result[i].category + "<br />" +
                     "Description: " + result[i].description + "<br />" +
-                    "Price: $" + result[i].price + ",-<br />" +
+                    "<div id='price'> Price: $" + result[i].price + ",-</div><br />" +
                     "Manufacturer: " + result[i].manufacturer + "<br />" +
-                    "<button onclick='buyProduct("/* + result[i].name*/ + ")'>Buy</button>" +
+                    "<button>Buy</button>" +
                     "</article>";
             }
             $("#showproducts").html(str);
