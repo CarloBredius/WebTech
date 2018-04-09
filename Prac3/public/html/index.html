@@ -32,12 +32,13 @@
         No account yet?
         <a href="register.html">register</a><br />
     </aside>
-    <content>
+    <div class="main">
         <h1>Web Shop</h1>
         <section>
+            <h2>Search options</h2>
             Data ophalen van database. Web semantics halen van <a href="http://schema.org/">schema</a>.<br />
             <p>
-                <input type="text" name="search" placeholder="Title" />
+                <input type="text" id="lookup" placeholder="Title" />
                 <button id="search">Search</button>
             </p>
             <p>
@@ -59,7 +60,7 @@
                 </select>
             </p>
             <section id="showproducts">
-
+                <h2>Products</h2>
             </section>
             <p>
                 <!-- use AJAX for more or less products -->
@@ -68,6 +69,6 @@
                 <button id="more">More</button>
             </p>
         </section>
-    </content>
+    </div>
 </body>
 </html>

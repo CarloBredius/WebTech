@@ -15,11 +15,7 @@ nav {
     box-shadow: -1px 1px 8px black;
     z-index: 1;
 }
-content {
-    position:absolute;
-    margin-top:40px;
-    width:100%;
-}
+
 nav a {
     vertical-align: middle;
     text-decoration: none;
@@ -31,7 +27,11 @@ nav li {
     display: inline;
     padding: 0 20px 0 20px;
 }
-
+.main {
+    position: absolute;
+    margin-top: 40px;
+    width: 100%;
+}
 aside {
     position: fixed;
     right: 8px;

@@ -2,14 +2,17 @@ form {
 	display: table;
 }
 p {
-	display:table-row;
+	display: table-row;
 }
 label {
 	display: table-cell;
 }
 input {
-	display:table-cell;
+	display: table-cell;
 	min-width: 200px;
+}
+#correct {
+    color: red;
 }
 
 input[type="submit"] {

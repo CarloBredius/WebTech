@@ -193,9 +193,11 @@ app.get("/products", function (req, res) {
     if (!whitelist(req.query.orderby)) {
         throw Error("Not on whitelist");
     }
-    let sql = "SELECT * FROM Products ORDER BY " + req.query.orderby + " LIMIT ? ";
+    let sql = "SELECT * FROM Products WHERE name LIKE ? ORDER BY " + req.query.orderby + " LIMIT ?";
+    console.log(sql);
     var jsonData = {};
-    db.all(sql, req.query.amount, (err, rows) => {
+    // TODO: find cleaner way 
+    db.all(sql, ["%" + req.query.lookup + "%", req.query.amount], (err, rows) => {
         jsonData = JSON.stringify(rows);
         res.writeHead(200, { "Content-Type": "application/json"});
         res.end(jsonData);
@@ -204,14 +206,12 @@ app.get("/products", function (req, res) {
         }
         rows.forEach((row) => {
             //Log each row
-            console.log(row);
+            //console.log(row);
         });
     });
-
     // close the database connection
     db.close();
 });
-
 
 // Create the server
 http.createServer(app).listen(8051, 'localhost');
