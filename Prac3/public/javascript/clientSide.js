@@ -17,9 +17,10 @@ $(document).ready(function () {
     // Give buttons functionality
     $("#showproducts").on("click", "button", function () {
         var productId = $(this).parent().attr('data-productId');
+        var productPrice = $(this).parent().attr('data-productPrice');
         //var productPrice = $(this).parent().children("#price");
         var txt;
-        var buy = confirm("Are you sure you want to buy " + productId + "?");
+        var buy = confirm("Are you sure you want to buy " + productId + " for $" + productPrice + ",- ?");
         if (buy == true) {
             //TODO: get user from session
             txt = productId + " is added to " + "logged-in user" + " history.";
@@ -61,12 +62,12 @@ function GetProducts() {
         success: function (result) {
             str = "";
             for (var i = 0; i < result.length; i++) {
-                str += "<article data-productId='" + result[i].name + "'>" +
+                str += "<article data-productId='" + result[i].name + "' data-productPrice='" + result[i].price +"'>" +
                     "<h2>" + result[i].name + "</h2>" +
                     "<img src='public/media/" + result[i].image + "' alt='" + result[i].name + "'><br />" +
                     "Category: " + result[i].category + "<br />" +
                     "Description: " + result[i].description + "<br />" +
-                    "<div id='price'> Price: $" + result[i].price + ",-</div><br />" +
+                    "Price: $" + result[i].price + ",-</div><br />" +
                     "Manufacturer: " + result[i].manufacturer + "<br />" +
                     "<button>Buy</button>" +
                     "</article>";
