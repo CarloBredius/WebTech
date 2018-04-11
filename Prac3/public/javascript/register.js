@@ -1,4 +1,5 @@
-// JavaScript source code
+// JavaScript code for matching password and repassword
+// might not be used in the end
 
 $(document).ready(function () {
     document.getElementsByName("repassword")[0].addEventListener("keydown", function () {

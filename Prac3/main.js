@@ -1,13 +1,14 @@
 #!/usr/bin/env nodejs
 
+// make use of libraries
 var http = require('http');
 var express = require('express');
 var session = require('client-sessions');
 const bodyParser = require('body-parser');
 //var db = require('db');
-
 var database = require('./serverSide/database');
 
+// create the app
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,10 +40,11 @@ app.use(session({
     secret: 'mashedpotato',
     // total time before cookie needcs to be set again
     duration: 30 * 60 * 1000,
-    // extend duration when the use sends anotehr request
+    // extend duration when the user does something
     activeDuration: 5 * 60 * 1000,
 }));
 
+//class for a product
 class Product {
     constructor(name, description, price, category, manufacturer, image) {
         this.name = name;
@@ -53,29 +55,16 @@ class Product {
         this.image = image;
     }
 }
-Hololens = new Product("Hololens", "Looking into the future", "$3000,-", "Virtual Reality", "Microsoft", "Hololens.png");
-//Carlo = new User("Carlo", "test", "address", "3571AD", "c.bredius@live.nl");
-
 
 // Connect to the DB file
 function connectToDB() {
     return new sqlite3.Database(file);
 }
 
-// Checking db
-//var db = connectToDB();
-//db.serialize(function () {
-//    //createTables();
-//    //insertIntoProductDB(Hololens);
-//    //readDB("Users");
-//    //readDB("Products");
-//});
-//db.close();
-
+//function to create user and product table
 function createTables() {
-    // serialized mode
     db.serialize(function () {
-        // if new DB file
+        // if the database file exists
         if (!exists) {
             // create tables, not accepting duplicate (names)
             db.run("CREATE TABLE Users " +
@@ -100,7 +89,7 @@ function createTables() {
 // insert user into database
 function insertIntoProductDB(product) {
     db.serialize(function () {
-        //TODO: if already exists
+        //TODO: if already exists, against injection
         db.run("INSERT INTO Products(name, description, price, category, manufacturer, image) " +
             "VALUES('" + product.name +
             "', '" + product.description +
@@ -115,7 +104,7 @@ function insertIntoProductDB(product) {
             });
     });
 }
-
+// Function to log a table to the console
 function readDB(table) {
     db.each("SELECT * FROM " + table, function (error, row) {
         if (error) {
@@ -127,7 +116,7 @@ function readDB(table) {
         console.log("\n");
     });
 }
-
+// class for a user
 class User {
     constructor(name, password, address, zipcode, email) {
         this.name = name;
@@ -137,7 +126,7 @@ class User {
         this.email = email;
     }
 }
-// Using ajax
+// Handle post request for registering a user using ajax
 app.post("/register", function (req, res) {
     var name = req.body.name;
     var password = req.body.password;
@@ -146,18 +135,21 @@ app.post("/register", function (req, res) {
     this.zipcode = req.body.zipcode;
     this.email = req.body.email;
     console.log("New user data: " + name + ' ' + password + ' ' + address + ' ' + zipcode + ' ' + email);
-
+    // check if password matches the repassword
     if (password === repassword) {
         console.log("Passwords match.");
+        // create user object
         newUser = new User(name, password, address, zipcode, email);
-        res.redirect(200, "index.html");
 
         // open database file
         var db = connectToDB();
+        // insert new user into database
         database.insertUser(db, newUser);
         db.close();
+        res.redirect(200, "index.html");
+
     }
-    else {
+    else { // if password and repassword don't match
         console.log("passwords do not match.");
         res.redirect(400, "register.html");
     }
@@ -173,19 +165,21 @@ app.post("/login", function (req, res) {
     //    console.log(user, pass);
     //});
 
+    // check if user exists in the database
     var db = connectToDB();
     db.run(sql);
     //register.checkUser(db, user, pass);
     db.close();
 });
 
-// Parameterize in expressions don't work in sqlite3 so use whitelist
+// Parameterizing strings in expressions don't work in sqlite3, so use whitelist
 // source: https://stackoverflow.com/questions/25374386/parameterizing-limit-and-order-in-sqlite3
 function whitelist(word) {
     var list = ["name", "price", "category", "description", "manufacturer"]
     return (list.indexOf(word) >= 0);
 }
-
+// Handle get request for products using the restrictions from the search options
+// using ajax
 app.get("/products", function (req, res) {
     // open the database
     let db = new sqlite3.Database(file);
@@ -195,8 +189,8 @@ app.get("/products", function (req, res) {
     }
     let sql = "SELECT * FROM Products WHERE name LIKE ? ORDER BY " + req.query.orderby + " LIMIT ?";
     console.log(sql);
+    // using json data
     var jsonData = {};
-    // TODO: find cleaner way 
     db.all(sql, ["%" + req.query.lookup + "%", req.query.amount], (err, rows) => {
         jsonData = JSON.stringify(rows);
         res.writeHead(200, { "Content-Type": "application/json"});
@@ -205,7 +199,7 @@ app.get("/products", function (req, res) {
             throw err;
         }
         rows.forEach((row) => {
-            //Log each row
+            //Log each row when products are fetched
             //console.log(row);
         });
     });

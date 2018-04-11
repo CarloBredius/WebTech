@@ -1,10 +1,10 @@
-// server side register
+// JavaScript code for checking/inserting users into the database on the server side
 
 module.exports = {
     insertUser: insertIntoUserDB,
     checkUser: checkUserInDB
 }
-
+// check if user exists is in database
 function checkUserInDB(db, name, pass) {
     var sql = "SELECT * FROM users WHERE user = '" + name + "' AND pass = '" + pass + "'";
 

@@ -4,6 +4,7 @@ var ordered = "name";
 var searchProduct = "";
 var filter = "none";
 
+// load products and eventlisteners when the document is ready
 $(document).ready(function () {
     // Fill screen with 10 products initially
     GetProducts();
@@ -53,6 +54,9 @@ $(document).ready(function () {
     });
 });
 
+// function to get products from the database using an ajax call fetching in json
+// which products are fetched depend on the paramters filled in in the search options
+// these products are then showed on the page using generated html code
 function GetProducts() {
     $.ajax({
         method: "GET",
