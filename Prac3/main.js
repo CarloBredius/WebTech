@@ -5,9 +5,6 @@ var http = require('http');
 var express = require('express');
 var session = require('client-sessions');
 const bodyParser = require('body-parser');
-//var db = require('db');
-var database = require('./serverSide/database');
-
 //set up logger
 var logger = require('http-logger');
 logger({
@@ -96,26 +93,12 @@ function createTables() {
 
 // insert user into database
 function insertIntoProductDB(product) {
-    db.serialize(function () {
-        //TODO: if already exists, against injection
-        var sql = "INSERT INTO Products(name, description, price, category, manufacturer, image) VALUES(?, ?, ?, ?, ?, ?)"
-        db.all(sql, [product.name, product.description, product.price, product.category, product.manufacturer, product.image], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-        });
-        //db.run("INSERT INTO Products(name, description, price, category, manufacturer, image) " +
-        //    "VALUES('" + product.name +
-        //    "', '" + product.description +
-        //    "', '" + product.price +
-        //    "', '" + product.category +
-        //    "', '" + product.manufacturer +
-        //    "', '" + product.image + "')",
-        //    function (err) {
-        //        if (err) {
-        //            return console.log(err.message);
-        //        }
-        //    });
+    var sql = "INSERT INTO Products(name, description, price, category, manufacturer, image) VALUES(?, ?, ?, ?, ?, ?)"
+    db.all(sql, [product.name, product.description, product.price, product.category, product.manufacturer, product.image], (err, rows) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
     });
 }
 // Function to log a table to the console
@@ -158,9 +141,19 @@ app.post("/register", function (req, res) {
         // open database file
         var db = connectToDB();
         // insert new user into database
-        database.insertUser(db, newUser);
-        db.close();
-        res.redirect(200, "index.html");
+        var sql = "INSERT INTO Users(name, password, address, zipcode, email) VALUES(?, ?, ?, ?, ?)"
+        db.all(sql, [newUser.name, newUser.password, newUser.address, newUser.zipcode, newUser.email], (err, rows) => {
+            // .close inside callback to close after query has ended
+            db.close();
+
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            else {
+                res.redirect(200, "index.html");
+            }
+        });
 
     }
     else { // if password and repassword don't match
@@ -170,25 +163,22 @@ app.post("/register", function (req, res) {
 });
 // log in procedure
 app.post("/login", function (req, res) {
-    var user = req.body.username;
-    var pass = req.body.password;
-
-    //var sql = "SELECT * FROM Users WHERE name = '" + user + "' AND password = '" + pass + "'";
-    var sql = "SELECT * FROM Users WHERE name = ? AND password = ?";
-    console.log("Input for SQL: " + sql);
-    //db.query(sql, [user, pass], function (err, results) {
-    //    console.log(user, pass);
-    //});
-
-    // check if user exists in the database
     var db = connectToDB();
-    db.all(sql, [user, pass], (err, rows) => {
-        if (err) {
-            throw err;
+    var sql = "SELECT * FROM Users WHERE (name == ?) AND (password == ?)"
+    db.all(sql, [req.body.username, req.body.password], function (err, rows) {
+        db.close();
+        // check if user exists
+        if (!rows.length) {
+            console.log("Name or password wrong");
+            res.redirect(400, "index.html");
+        }
+        else {
+            rows.forEach(function (row) {
+                console.log('Login Succes');
+                res.sendFile('public/html/index.html', { root: __dirname })
+            });
         }
     });
-    register.checkUser(db, user, pass);
-    db.close();
 });
 
 // Parameterizing strings in expressions don't work in sqlite3, so use whitelist
@@ -207,12 +197,13 @@ app.get("/products", function (req, res) {
         throw Error("Not on whitelist");
     }
     let sql = "SELECT * FROM Products WHERE name LIKE ? ORDER BY " + req.query.orderby + " LIMIT ?";
-    console.log(sql);
     // using json data
     var jsonData = {};
     db.all(sql, ["%" + req.query.lookup + "%", req.query.amount], (err, rows) => {
+        db.close();
+
         jsonData = JSON.stringify(rows);
-        res.writeHead(200, { "Content-Type": "application/json"});
+        res.writeHead(200, { "Content-Type": "application/json" });
         res.end(jsonData);
         if (err) {
             throw err;
@@ -222,8 +213,6 @@ app.get("/products", function (req, res) {
             //console.log(row);
         });
     });
-    // close the database connection
-    db.close();
 });
 
 // Create the server
