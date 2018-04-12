@@ -8,9 +8,17 @@ const bodyParser = require('body-parser');
 //var db = require('db');
 var database = require('./serverSide/database');
 
+//set up logger
+var logger = require('http-logger');
+logger({
+    file: 'logFile'
+});
+
 // create the app
 var app = express();
 
+// let app use the following
+app.use(logger());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // stuff to work with database safer

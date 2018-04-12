@@ -1,0 +1,36 @@
+{
+    "name": "http-logger",
+    "version": "1.0.0",
+    "description": "A cute and simple middleware for node.js that writes/log all HTTP requests to a file",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "http-logger",
+        "log",
+        "logger",
+        "express-logger",
+        "log to file",
+        "http",
+        "https",
+        "fs"
+    ],
+    "devDependencies": {
+        "on-finished": "~2.3.0",
+        "on-headers": "~1.0.0"
+    },
+    "engines": {
+        "node": ">= 0.10.0"
+    },
+    "bugs": "https://github.com/HashirHussain/http-logger/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/HashirHussain/http-logger.git"
+    },
+    "author": {
+        "name": "Hashir Hussain",
+        "email": "hashir.hussain111@gmail.com"
+    },
+    "license": "MIT"
+}

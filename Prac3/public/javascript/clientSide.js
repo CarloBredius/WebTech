@@ -74,7 +74,7 @@ function GetProducts() {
                     "Price: $" + result[i].price + ",-</div><br />" +
                     "Manufacturer: " + result[i].manufacturer + "<br />" +
                     "<button>Buy</button>" +
-                    "</article>";
+                    "</article> \n";
             }
             $("#showproducts").html(str);
         }
