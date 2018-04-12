@@ -9,6 +9,9 @@ $(document).ready(function () {
     // Fill screen with 10 products initially
     GetProducts();
 
+    // check session
+
+
     document.getElementById("search").addEventListener("click", function (evt) {
         searchProduct = document.getElementById("lookup").value;
         console.log(this.id + ": " + searchProduct);

@@ -165,7 +165,8 @@ app.post("/register", function (req, res) {
 app.post("/login", function (req, res) {
     var db = connectToDB();
     var sql = "SELECT * FROM Users WHERE (name == ?) AND (password == ?)"
-    db.all(sql, [req.body.username, req.body.password], function (err, rows) {
+    var name = req.body.username;
+    db.all(sql, [name, req.body.password], function (err, rows) {
         db.close();
         // check if user exists
         if (!rows.length) {
@@ -175,10 +176,16 @@ app.post("/login", function (req, res) {
         else {
             rows.forEach(function (row) {
                 console.log('Login Succes');
+                req.session.username = name;
+                //res.send('Welcome ' + req.session.username);
                 res.sendFile('public/html/index.html', { root: __dirname })
             });
         }
     });
+});
+// log out procedure
+app.get('/logout', function (req, res) {
+    req.session.reset();
 });
 
 // Parameterizing strings in expressions don't work in sqlite3, so use whitelist
