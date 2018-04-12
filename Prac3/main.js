@@ -98,18 +98,24 @@ function createTables() {
 function insertIntoProductDB(product) {
     db.serialize(function () {
         //TODO: if already exists, against injection
-        db.run("INSERT INTO Products(name, description, price, category, manufacturer, image) " +
-            "VALUES('" + product.name +
-            "', '" + product.description +
-            "', '" + product.price +
-            "', '" + product.category +
-            "', '" + product.manufacturer +
-            "', '" + product.image + "')",
-            function (err) {
-                if (err) {
-                    return console.log(err.message);
-                }
-            });
+        var sql = "INSERT INTO Products(name, description, price, category, manufacturer, image) VALUES(?, ?, ?, ?, ?, ?)"
+        db.all(sql, [product.name, product.description, product.price, product.category, product.manufacturer, product.image], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+        });
+        //db.run("INSERT INTO Products(name, description, price, category, manufacturer, image) " +
+        //    "VALUES('" + product.name +
+        //    "', '" + product.description +
+        //    "', '" + product.price +
+        //    "', '" + product.category +
+        //    "', '" + product.manufacturer +
+        //    "', '" + product.image + "')",
+        //    function (err) {
+        //        if (err) {
+        //            return console.log(err.message);
+        //        }
+        //    });
     });
 }
 // Function to log a table to the console
@@ -167,7 +173,8 @@ app.post("/login", function (req, res) {
     var user = req.body.username;
     var pass = req.body.password;
 
-    var sql = "SELECT * FROM Users WHERE name = '" + user + "' AND password = '" + pass + "'";
+    //var sql = "SELECT * FROM Users WHERE name = '" + user + "' AND password = '" + pass + "'";
+    var sql = "SELECT * FROM Users WHERE name = ? AND password = ?";
     console.log("Input for SQL: " + sql);
     //db.query(sql, [user, pass], function (err, results) {
     //    console.log(user, pass);
@@ -175,8 +182,12 @@ app.post("/login", function (req, res) {
 
     // check if user exists in the database
     var db = connectToDB();
-    db.run(sql);
-    //register.checkUser(db, user, pass);
+    db.all(sql, [user, pass], (err, rows) => {
+        if (err) {
+            throw err;
+        }
+    });
+    register.checkUser(db, user, pass);
     db.close();
 });
 
