@@ -3,8 +3,8 @@
 // make use of libraries
 var http = require('http');
 var express = require('express');
-var session = require('client-sessions');
 const bodyParser = require('body-parser');
+var session = require('express-session');
 //set up logger
 var logger = require('http-logger');
 logger({
@@ -41,12 +41,13 @@ app.use("/javascript", express.static(__dirname + "/public/javascript"));
 // https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions
 // TODO: wanneer log in, cookie appenden met username and encrypted password (zoek voor express)
 app.use(session({
-    cookieName: 'session',
-    secret: 'mashedpotato',
-    // total time before cookie needcs to be set again
-    duration: 30 * 60 * 1000,
-    // extend duration when the user does something
-    activeDuration: 5 * 60 * 1000,
+    key: 'user session',
+    secret: 'potato',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
 }));
 
 //class for a product
@@ -158,7 +159,7 @@ app.post("/register", function (req, res) {
     }
     else { // if password and repassword don't match
         console.log("passwords do not match.");
-        res.redirect(400, "register.html");
+        res.redirect(404, "register.html");
     }
 });
 // log in procedure
@@ -171,21 +172,26 @@ app.post("/login", function (req, res) {
         // check if user exists
         if (!rows.length) {
             console.log("Name or password wrong");
-            res.redirect(400, "index.html");
+            res.redirect(404, "index.html");
         }
         else {
             rows.forEach(function (row) {
                 console.log('Login Succes');
-                req.session.username = name;
-                //res.send('Welcome ' + req.session.username);
-                res.sendFile('public/html/index.html', { root: __dirname })
+                // start a session
+                sess = req.session;
+                sess.name = name;
+                //res.write('Hello ' + sess.name);
+                //res.end(); //TODO: savestate (reopening a browser)
+                res.redirect(200, "index.html");
             });
         }
     });
 });
 // log out procedure
 app.get('/logout', function (req, res) {
-    req.session.reset();
+    console.log("logout");
+    res.clearCookie('user session');
+    res.redirect(200, "index.html");
 });
 
 // Parameterizing strings in expressions don't work in sqlite3, so use whitelist

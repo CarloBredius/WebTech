@@ -9,8 +9,10 @@ $(document).ready(function () {
     // Fill screen with 10 products initially
     GetProducts();
 
-    // check session
 
+
+    // check session
+    // https://stackoverflow.com/questions/5968196/check-cookie-if-cookie-exists
 
     document.getElementById("search").addEventListener("click", function (evt) {
         searchProduct = document.getElementById("lookup").value;
