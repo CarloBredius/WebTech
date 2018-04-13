@@ -4,7 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/stylesheet.css">
-
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="javascript/profile.js"></script>
     <title>Contact</title>
 </head>
 <body>
@@ -15,10 +18,39 @@
         </ul>
     </nav>
     <div class="main">
-        <section>
+        <section id="hide">
             <h2>Profile</h2>
             <button id="edit">Edit profile </button> <br />
-
+            <form id="profileform" action="/editprofile" method="post">
+                <p>
+                    <label>Name:</label>
+                    <input type="text" name="name" />
+                </p>
+                <p>
+                    <label>Address:</label>
+                    <input type="text" name="address"/>
+                </p>
+                <p>
+                    <label>Zip code:</label>
+                    <input type="text" name="zipcode"/>
+                </p>
+                <p>
+                    <label>E-mail:</label>
+                    <input type="email" name="email"/>
+                </p>
+                <p>
+                    <label>Password:</label>
+                    <input type="password" name="password"/>
+                </p>
+                <p>
+                    <label>Re-enter password:</label>
+                    <input type="password" name="repassword"/>
+                </p>
+                <p>
+                    <label> </label>
+                    <button id="submit">submit</button>
+                </p>
+            </form>
         </section>
         <section>
             <h2>Bought history</h2>
