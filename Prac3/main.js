@@ -171,14 +171,14 @@ app.post("/login", function (req, res) {
         // check if user exists
         if (!rows.length) {
             console.log("Name or password wrong");
-            res.redirect(400, "index.html");
+            return res.status(404).send();
         }
         else {
             rows.forEach(function (row) {
                 console.log('Login Succes');
                 req.session.username = name;
-                //res.send('Welcome ' + req.session.username);
-                res.sendFile('public/html/index.html', { root: __dirname })
+                return res.status(200).send(row);
+                //res.sendFile('public/html/index.html', { root: __dirname })
             });
         }
     });

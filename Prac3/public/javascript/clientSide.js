@@ -9,9 +9,6 @@ $(document).ready(function () {
     // Fill screen with 10 products initially
     GetProducts();
 
-    // check session
-
-
     document.getElementById("search").addEventListener("click", function (evt) {
         searchProduct = document.getElementById("lookup").value;
         console.log(this.id + ": " + searchProduct);
@@ -38,7 +35,6 @@ $(document).ready(function () {
 
     document.getElementById("order").addEventListener("change", function (evt) {
         ordered = this.value;
-        console.log(this.id + ": " + ordered); // TODO: delete before submitting
         GetProducts();
     });
 
@@ -80,6 +76,18 @@ function GetProducts() {
                     "</article> \n";
             }
             $("#showproducts").html(str);
+        }
+    });
+}
+
+function GetUser() {
+    $.ajax({
+        method: "GET",
+        contentType: "application/json",
+        url: "./login",
+        success: function (result) {
+            str = "Welcome " + result.name;            
+            $("#logIn").html(str);
         }
     });
 }
