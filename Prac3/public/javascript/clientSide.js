@@ -13,6 +13,7 @@ $(document).ready(function () {
     // check session
     // https://stackoverflow.com/questions/5968196/check-cookie-if-cookie-exists
     var loggedIn = false; //document.cookie.indexOf('userSession');
+    alert(console.log(document.cookie));
 
     if (loggedIn) {
         $("#loggedInText").show();

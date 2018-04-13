@@ -201,8 +201,7 @@ app.post("/editprofile", function (req, res) {
     }
 });
 // log in procedure
-app.post("/login", function (req, res) {
-    
+app.post("/login", function (req, res) {    
     var db = connectToDB();
     var sql = "SELECT * FROM Users WHERE (name == ?) AND (password == ?)"
     var name = req.body.username;
@@ -219,6 +218,7 @@ app.post("/login", function (req, res) {
                 // start a session
                 sess = req.session;
                 sess.name = name;
+                res.cookie('user', name, { maxAge: 60000 });
                 //res.write('Hello ' + sess.name);
                 //res.end(); //TODO: savestate (reopening a browser)
                 res.redirect(200, "index.html");
@@ -229,7 +229,7 @@ app.post("/login", function (req, res) {
 // log out procedure
 app.get('/logout', function (req, res) {
     console.log("logout");
-    res.clearCookie('userSession');
+    res.clearCookie('user');
     res.redirect(200, "index.html");
 });
 
