@@ -41,8 +41,8 @@ app.use("/javascript", express.static(__dirname + "/public/javascript"));
 // https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions
 // TODO: wanneer log in, cookie appenden met username and encrypted password (zoek voor express)
 app.use(session({
-    key: 'user session',
-    secret: 'potato',
+    key: 'userSession',
+    secret: 'mashedpotatoes',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -104,6 +104,7 @@ function insertIntoProductDB(product) {
 }
 // Function to log a table to the console
 function readDB(table) {
+    var db = connectToDB();
     db.each("SELECT * FROM " + table, function (error, row) {
         if (error) {
             console.log(error);
@@ -113,6 +114,7 @@ function readDB(table) {
         }
         console.log("\n");
     });
+    db.close();
 }
 // class for a user
 class User {
@@ -200,6 +202,7 @@ app.post("/editprofile", function (req, res) {
 });
 // log in procedure
 app.post("/login", function (req, res) {
+    
     var db = connectToDB();
     var sql = "SELECT * FROM Users WHERE (name == ?) AND (password == ?)"
     var name = req.body.username;
@@ -226,7 +229,7 @@ app.post("/login", function (req, res) {
 // log out procedure
 app.get('/logout', function (req, res) {
     console.log("logout");
-    res.clearCookie('user session');
+    res.clearCookie('userSession');
     res.redirect(200, "index.html");
 });
 

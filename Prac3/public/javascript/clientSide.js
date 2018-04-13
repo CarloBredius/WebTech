@@ -9,14 +9,24 @@ $(document).ready(function () {
     // Fill screen with 10 products initially
     GetProducts();
 
-<<<<<<< HEAD
-
-
+    //$("#loggedInText").hide();
     // check session
     // https://stackoverflow.com/questions/5968196/check-cookie-if-cookie-exists
+    var loggedIn = false; //document.cookie.indexOf('userSession');
 
-=======
->>>>>>> origin/master
+    if (loggedIn) {
+        $("#loggedInText").show();
+        $("#loginform").hide();
+        $("#registerText").hide();
+    }
+    else
+    {
+        $("#loggedInText").hide();
+
+        $("#loginform").show();
+        $("#registerText").show();
+    }
+
     document.getElementById("search").addEventListener("click", function (evt) {
         searchProduct = document.getElementById("lookup").value;
         console.log(this.id + ": " + searchProduct);
@@ -88,14 +98,22 @@ function GetProducts() {
     });
 }
 
-function GetUser() {
-    $.ajax({
-        method: "GET",
-        contentType: "application/json",
-        url: "./login",
-        success: function (result) {
-            str = "Welcome " + result.name;            
-            $("#logIn").html(str);
+function getCookie(name) {
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    }
+    else {
+        begin += 2;
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+            end = dc.length;
         }
-    });
-}
+    }
+    // because unescape has been deprecated, replaced with decodeURI
+    //return unescape(dc.substring(begin + prefix.length, end));
+    return decodeURI(dc.substring(begin + prefix.length, end));
+} 

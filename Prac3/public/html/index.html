@@ -19,7 +19,7 @@
         </ul>
     </nav>
     <aside id="logIn">
-        <form id='loginform' action="/login" method="get">
+        <form id='loginform' action="/login" method="post">
             <!-- kan value veranderen met informatie uit een cookie (bv. de vorige RB) -->
             Username:<br />
             <input type="text" name="username" value="Carlo" />
@@ -29,11 +29,17 @@
             <br />
             <input type="submit" value="Log in" />
         </form>
-        <form action="/logout" method="get">
-            <input type="submit" value="Log out" />
-        </form>
-        No account yet?
-        <a href="register.html">register</a><br />
+
+        <div id="registerText">
+            No account yet?
+            <a href="register.html">register</a><br />
+        </div>
+        <div id="loggedInText">
+            Welcome User! <br />
+            <form action="/logout" method="get">
+                <input type="submit" value="Log out" />
+            </form>
+        </div>
     </aside>
     <div class="main">
         <h1>Web Shop</h1>
