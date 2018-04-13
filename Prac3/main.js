@@ -161,6 +161,42 @@ app.post("/register", function (req, res) {
         res.redirect(400, "register.html");
     }
 });
+//edit profile procedure
+app.post("/editprofile", function (req, res) {
+    var name = req.body.name;
+    var password = req.body.password;
+    var repassword = req.body.repassword;
+    var address = req.body.address;
+    this.zipcode = req.body.zipcode;
+    this.email = req.body.email;
+    console.log("Editing profile data of " + "user from cookie" + "with new data: " + name + ' ' + password + ' ' + address + ' ' + zipcode + ' ' + email);
+    // check if password matches the repassword
+    if (password === repassword) {
+        console.log("Passwords match.");
+        // open database file
+        var db = connectToDB();
+        // insert new user into database
+        var sql = "UPDATE Users SET name = ? WHERE name = Carlo";
+        db.all(sql, [name], (err, rows) => {
+            // .close inside callback to close after query has ended
+            db.close();
+
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+            else {
+                console.log(sql);
+                res.redirect(200, "profile.html");
+            }
+        });
+
+    }
+    else { // if password and repassword don't match
+        console.log("passwords do not match.");
+        res.redirect(400, "register.html");
+    }
+});
 // log in procedure
 app.post("/login", function (req, res) {
     var db = connectToDB();
