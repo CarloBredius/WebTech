@@ -40,15 +40,7 @@ app.use("/javascript", express.static(__dirname + "/public/javascript"));
 // use session  for handling log in
 // https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions
 // TODO: wanneer log in, cookie appenden met username and encrypted password (zoek voor express)
-//app.use(session({
-//    key: 'userSession',
-//    secret: 'mashedpotatoes',
-//    resave: false,
-//    saveUninitialized: false,
-//    cookie: {
-//        expires: 600000
-//    }
-//}));
+
 
 //class for a product
 class Product {
@@ -139,7 +131,7 @@ app.post("/transaction", function (req, res) {
     var username = req.body.username;
     var productname = req.body.productname;
 
-    console.log("New transaction: \n" + username + " bought" + productname + ".");
+    console.log("New transaction: \n" + username + " bought " + productname + ".");
     var db = connectToDB();
     var sql = "INSERT INTO Transactions(username, productname) VALUES(?, ?)";
     db.all(sql, [username, productname], (err, rows) => {
@@ -149,7 +141,7 @@ app.post("/transaction", function (req, res) {
             throw err;
         }
         else {
-            res.redirect(200, "profile.html");
+            res.redirect(302, "index.html");
         }
     });
 });
@@ -181,13 +173,15 @@ app.post("/register", function (req, res) {
                 throw err;
             }
             else {
-                res.redirect(200, "index.html");
+                //TODO: send alert
+                res.redirect(302, "index.html");
             }
         });
     }
     else { // if password and repassword don't match
         console.log("passwords do not match.");
-        res.redirect(404, "register.html");
+        //TODO: send alert
+        res.redirect(302, "register.html");
     }
 });
 //edit profile procedure
@@ -198,7 +192,7 @@ app.post("/editprofile", function (req, res) {
     var address = req.body.address;
     this.zipcode = req.body.zipcode;
     this.email = req.body.email;
-    console.log("Editing profile data of " + "user from cookie" + "with new data: " + name + ' ' + password + ' ' + address + ' ' + zipcode + ' ' + email);
+    console.log("Editing profile data of " + cookie + "with new data: " + name + ' ' + password + ' ' + address + ' ' + zipcode + ' ' + email);
     // check if password matches the repassword
     if (password === repassword) {
         console.log("Passwords match.");
@@ -216,14 +210,14 @@ app.post("/editprofile", function (req, res) {
             }
             else {
                 console.log(sql);
-                res.redirect(200, "profile.html");
+                res.redirect(302, "profile.html");
             }
         });
 
     }
     else { // if password and repassword don't match
         console.log("passwords do not match.");
-        res.redirect(400, "register.html");
+        res.redirect(302, "register.html");
     }
 });
 // log in procedure
@@ -236,18 +230,15 @@ app.post("/login", function (req, res) {
         // check if user exists
         if (!rows.length) {
             console.log("Name or password wrong");
-            res.redirect(404, "index.html");
+            res.redirect(302, "index.html");
         }
         else {
             rows.forEach(function (row) {
                 console.log('Login Succes');
-                // start a session
-                //sess = req.session;
-                //sess.name = name;
+                // start a session using a cookie
                 res.cookie('Username', name, { maxAge: 60000, httpOnly: false });
-                //res.write('Hello ' + sess.name);
-                //res.end(); //TODO: savestate (reopening a browser)
-                res.redirect(200, "index.html");
+                //TODO: savestate (reopening a browser)
+                res.redirect(302, "index.html");
             });
         }
     });
@@ -255,8 +246,8 @@ app.post("/login", function (req, res) {
 // log out procedure
 app.get('/logout', function (req, res) {
     console.log("logout");
-    res.clearCookie('user');
-    res.redirect(200, "index.html");
+    res.clearCookie('Username');
+    res.redirect(302, "index.html");
 });
 
 // Parameterizing strings in expressions don't work in sqlite3, so use whitelist
@@ -298,6 +289,7 @@ app.get("/history", function (req, res) {
     let sql = "SELECT * FROM Transactions WHERE username LIKE ?";
     // using json data
     var jsonData = {};
+    console.log(req.query.username);
     db.all(sql, [req.query.username], (err, rows) => {
         db.close();
 

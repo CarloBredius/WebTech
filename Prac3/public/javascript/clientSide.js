@@ -2,28 +2,17 @@
 var productAmount = 10;
 var ordered = "name";
 var searchProduct = "";
-var filter = "none";
-var loggedIn = false; 
+var loggedIn = false;
+var cookie;
 
 // load products and eventlisteners when the document is ready
 $(document).ready(function () {
     // Fill screen with 10 products initially
     GetProducts();
-    CheckLogin();
-
-    document.getElementById("loginButton").addEventListener("click", function (evt) {
-        loggedIn = true;
-        CheckLogin();
-    });
-    document.getElementById("logoutButton").addEventListener("click", function (evt) {
-        loggedIn = false;
-        CheckLogin();
-    });
+    //check which user is logged in if any
+    CheckUser();
 
     // check session
-    // https://stackoverflow.com/questions/5968196/check-cookie-if-cookie-exists
-
-
     document.getElementById("search").addEventListener("click", function (evt) {
         searchProduct = document.getElementById("lookup").value;
         console.log(this.id + ": " + searchProduct);
@@ -39,9 +28,9 @@ $(document).ready(function () {
         var buy = confirm("Are you sure you want to buy " + productId + " for $" + productPrice + ",- ?");
         if (buy == true) {
             //TODO: get user from session
-            txt = productId + " is added to " + "logged-in user" + " history.";
+            txt = productId + " is added to the history of " + cookie + ".";
             // Store product in bought history
-            post('/transaction', { username: 'Chantal', productname: productId });
+            post('/transaction', { username: cookie, productname: productId });
         }
         else {
             txt = "Declined"
@@ -90,19 +79,6 @@ function post(path, params, method) {
     form.submit();
 }
 
-function CheckLogin() {
-    if (loggedIn) {
-        $("#loggedInText").show();
-        $("#loginform").hide();
-        $("#registerText").hide();
-    }
-    else {
-        $("#loggedInText").hide();
-        $("#loginform").show();
-        $("#registerText").show();
-    }
-}
-
 // function to get products from the database using an ajax call fetching in json
 // which products are fetched depend on the paramters filled in in the search options
 // these products are then showed on the page using generated html code
@@ -128,4 +104,38 @@ function GetProducts() {
             $("#showproducts").html(str);
         }
     });
+}
+function LoginVisibility() {
+    if (loggedIn) {
+        $("#user").html(cookie);
+        $("#loggedInText").show();
+        $("#loginform").hide();
+        $("#registerText").hide();
+        $("#showproducts").find("button").hide();
+        $("#profilePage").show();
+    }
+    else {
+        $("#loggedInText").hide();
+        $("#loginform").show();
+        $("#registerText").show();
+        $("#showproducts").find("button").show();
+        $("#profilePage").hide();
+    }
+}
+// get only the value from a cookie
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+}
+// check if a user is logged in
+function CheckUser() {
+    cookie = getCookie("Username");
+    if (cookie) {
+        loggedIn = true;
+    }
+    else {
+        loggedIn = false;
+    }
+    LoginVisibility();
 }

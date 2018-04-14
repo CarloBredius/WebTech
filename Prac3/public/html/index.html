@@ -15,7 +15,7 @@
     <nav>
         <ul>
             <li><a href="index.html"><strong>Startpagina</strong></a> </li>
-            <li><a href="profile.html">Profile</a> </li>
+            <li id="profilePage"><a href="profile.html">Profile</a> </li>
         </ul>
     </nav>
     <aside id="logIn">
@@ -29,15 +29,13 @@
             <br />
             <input type="submit" value="Log in" />
         </form>
-
         <div id="registerText">
             No account yet?
             <a href="register.html">register</a><br />
         </div>
-        <button id="loginButton">logintest</button>
-
         <div id="loggedInText">
-            Welcome User! <br />
+            Logged in user: <br />
+            <div id="user"></div>
             <form action="/logout" method="get">
                 <input id="logoutButton" type="submit" value="Log out" />
             </form>

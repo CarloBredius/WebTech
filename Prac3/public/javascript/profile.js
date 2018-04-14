@@ -10,7 +10,7 @@ $(document).ready(function () {
 function GetHistory() {
     $.ajax({
         method: "GET",
-        data: { username: "Chantal" }, // TODO: Get cookie name
+        data: { username: getCookie("Username") }, // TODO: Get cookie name
         contentType: "application/json",
         url: "./history",
         success: function (result) {
@@ -22,4 +22,11 @@ function GetHistory() {
             $("#history").html(str);
         }
     });
+}
+
+// get only the value from a cookie
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
 }
