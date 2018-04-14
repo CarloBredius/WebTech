@@ -1,4 +1,5 @@
 // JavaScript source code on client side
+//set some global variables to be used in multiple methods
 var productAmount = 10;
 var ordered = "name";
 var searchProduct = "";

@@ -4,7 +4,7 @@
 var http = require('http');
 var express = require('express');
 const bodyParser = require('body-parser');
-var session = require('express-session');
+
 //set up logger
 var logger = require('http-logger');
 logger({
@@ -13,6 +13,19 @@ logger({
 
 // create the app
 var app = express();
+
+// setup for session
+var session = require('express-session');
+app.use(session({
+    cookieName: 'session',
+    secret: 'mashedpotato',
+    // total time before cookie needcs to be set again
+    duration: 30 * 60 * 1000,
+    // extend duration when the user does something
+    activeDuration: 5 * 60 * 1000,
+    resave: false,
+    saveUninitialized: false,
+}));
 
 // let app use the following
 app.use(logger());
@@ -36,11 +49,6 @@ app.use("/public/media", express.static(__dirname + "/public/media"));
 app.use("/css", express.static(__dirname + "/public/css"));
 // allow usage of separate javascript files in javascript folder
 app.use("/javascript", express.static(__dirname + "/public/javascript"));
-
-// use session  for handling log in
-// https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions
-// TODO: wanneer log in, cookie appenden met username and encrypted password (zoek voor express)
-
 
 //class for a product
 class Product {
@@ -186,13 +194,14 @@ app.post("/register", function (req, res) {
 });
 //edit profile procedure
 app.post("/editprofile", function (req, res) {
+    console.log("testin testing");
     var name = req.body.name;
     var password = req.body.password;
     var repassword = req.body.repassword;
     var address = req.body.address;
     this.zipcode = req.body.zipcode;
     this.email = req.body.email;
-    console.log("Editing profile data of " + cookie + "with new data: " + name + ' ' + password + ' ' + address + ' ' + zipcode + ' ' + email);
+    console.log("Editing profile data of " + "cookie user" + "with new data: " + name + ' ' + password + ' ' + address + ' ' + zipcode + ' ' + email);
     // check if password matches the repassword
     if (password === repassword) {
         console.log("Passwords match.");
@@ -213,7 +222,6 @@ app.post("/editprofile", function (req, res) {
                 res.redirect(302, "profile.html");
             }
         });
-
     }
     else { // if password and repassword don't match
         console.log("passwords do not match.");
@@ -236,6 +244,8 @@ app.post("/login", function (req, res) {
             rows.forEach(function (row) {
                 console.log('Login Succes');
                 // start a session using a cookie
+                var sess = req.session;
+                sess.name = name;
                 res.cookie('Username', name, { maxAge: 60000, httpOnly: false });
                 //TODO: savestate (reopening a browser)
                 res.redirect(302, "index.html");
@@ -246,6 +256,7 @@ app.post("/login", function (req, res) {
 // log out procedure
 app.get('/logout', function (req, res) {
     console.log("logout");
+    res.clearCookie('session');
     res.clearCookie('Username');
     res.redirect(302, "index.html");
 });

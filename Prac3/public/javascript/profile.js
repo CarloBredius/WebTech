@@ -10,7 +10,7 @@ $(document).ready(function () {
 function GetHistory() {
     $.ajax({
         method: "GET",
-        data: { username: getCookie("Username") }, // TODO: Get cookie name
+        data: { username: getCookie("Username") },
         contentType: "application/json",
         url: "./history",
         success: function (result) {
