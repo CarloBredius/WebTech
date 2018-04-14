@@ -49,8 +49,7 @@ $(document).ready(function () {
     });
 
     document.getElementById("more").addEventListener("click", function () {
-        // change if database size changes, (Could Do: get dbsize instead of hardcode with get)
-        if (productAmount <= 20) {
+        if (productAmount <= 30) {
             productAmount += 10;
         }
         GetProducts();

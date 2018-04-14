@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // stuff to work with database safer
 var fs = require("fs");
-var file = __dirname + "/serverSide/Database.db";
+var file = __dirname + "/serverSide/database.db";
 var exists = fs.existsSync(file);
 if (!exists) {
     fs.openSync(file, "w");
@@ -310,7 +310,7 @@ app.get("/history", function (req, res) {
         }
         rows.forEach((row) => {
             //Log each transaction after they are fetched
-            console.log(row);
+            //console.log(row);
         });
     });
 });
