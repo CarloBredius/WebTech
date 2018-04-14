@@ -40,10 +40,9 @@ aside {
     margin-top:42px;
     padding: 10px;
     border-radius: 0 0 25px 25px;
-    border: solid;
+    border: solid blue;
     border-top: none;
     border-width: 3px;
-    border-color: blue;
     box-shadow: -1px 1px 8px black;
     z-index: 1;
 }

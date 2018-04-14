@@ -3,30 +3,26 @@ var productAmount = 10;
 var ordered = "name";
 var searchProduct = "";
 var filter = "none";
+var loggedIn = false; 
 
 // load products and eventlisteners when the document is ready
 $(document).ready(function () {
     // Fill screen with 10 products initially
     GetProducts();
+    CheckLogin();
 
-    //$("#loggedInText").hide();
+    document.getElementById("loginButton").addEventListener("click", function (evt) {
+        loggedIn = true;
+        CheckLogin();
+    });
+    document.getElementById("logoutButton").addEventListener("click", function (evt) {
+        loggedIn = false;
+        CheckLogin();
+    });
+
     // check session
     // https://stackoverflow.com/questions/5968196/check-cookie-if-cookie-exists
-    var loggedIn = false; //document.cookie.indexOf('userSession');
-    alert(console.log(document.cookie));
 
-    if (loggedIn) {
-        $("#loggedInText").show();
-        $("#loginform").hide();
-        $("#registerText").hide();
-    }
-    else
-    {
-        $("#loggedInText").hide();
-
-        $("#loginform").show();
-        $("#registerText").show();
-    }
 
     document.getElementById("search").addEventListener("click", function (evt) {
         searchProduct = document.getElementById("lookup").value;
@@ -45,6 +41,7 @@ $(document).ready(function () {
             //TODO: get user from session
             txt = productId + " is added to " + "logged-in user" + " history.";
             // Store product in bought history
+            post('/transaction', { username: 'Chantal', productname: productId });
         }
         else {
             txt = "Declined"
@@ -71,6 +68,40 @@ $(document).ready(function () {
         GetProducts();
     });
 });
+// post from client side js 
+function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+    // create form to make post request
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for (var key in params) {
+        if (params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+        }
+    }
+    document.body.appendChild(form);
+    form.submit();
+}
+
+function CheckLogin() {
+    if (loggedIn) {
+        $("#loggedInText").show();
+        $("#loginform").hide();
+        $("#registerText").hide();
+    }
+    else {
+        $("#loggedInText").hide();
+        $("#loginform").show();
+        $("#registerText").show();
+    }
+}
 
 // function to get products from the database using an ajax call fetching in json
 // which products are fetched depend on the paramters filled in in the search options
@@ -98,23 +129,3 @@ function GetProducts() {
         }
     });
 }
-
-function getCookie(name) {
-    var dc = document.cookie;
-    var prefix = name + "=";
-    var begin = dc.indexOf("; " + prefix);
-    if (begin == -1) {
-        begin = dc.indexOf(prefix);
-        if (begin != 0) return null;
-    }
-    else {
-        begin += 2;
-        var end = document.cookie.indexOf(";", begin);
-        if (end == -1) {
-            end = dc.length;
-        }
-    }
-    // because unescape has been deprecated, replaced with decodeURI
-    //return unescape(dc.substring(begin + prefix.length, end));
-    return decodeURI(dc.substring(begin + prefix.length, end));
-} 

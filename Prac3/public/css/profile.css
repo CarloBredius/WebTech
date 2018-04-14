@@ -1,0 +1,9 @@
+#history ul {
+    display: inline-block;
+    min-width: 300px;
+    min-height:20px;
+    border: solid blue;
+    border-width: 1px;
+    background-color: white;
+    padding-left: 20px;
+}

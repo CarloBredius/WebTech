@@ -40,15 +40,15 @@ app.use("/javascript", express.static(__dirname + "/public/javascript"));
 // use session  for handling log in
 // https://stormpath.com/blog/everything-you-ever-wanted-to-know-about-node-dot-js-sessions
 // TODO: wanneer log in, cookie appenden met username and encrypted password (zoek voor express)
-app.use(session({
-    key: 'userSession',
-    secret: 'mashedpotatoes',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 600000
-    }
-}));
+//app.use(session({
+//    key: 'userSession',
+//    secret: 'mashedpotatoes',
+//    resave: false,
+//    saveUninitialized: false,
+//    cookie: {
+//        expires: 600000
+//    }
+//}));
 
 //class for a product
 class Product {
@@ -91,7 +91,15 @@ function createTables() {
         }
     });
 }
-
+//function to create transaction table
+function createTransactionTable() {
+    db.serialize(function () {
+        db.run("CREATE TABLE Transactions " +
+            "(username TEXT NOT NULL, " +
+            "productname TEXT NOT NULL)");
+        console.log("transaction table created \n");
+    });
+}
 // insert user into database
 function insertIntoProductDB(product) {
     var sql = "INSERT INTO Products(name, description, price, category, manufacturer, image) VALUES(?, ?, ?, ?, ?, ?)"
@@ -126,6 +134,25 @@ class User {
         this.email = email;
     }
 }
+// handle post request for new transaction
+app.post("/transaction", function (req, res) {
+    var username = req.body.username;
+    var productname = req.body.productname;
+
+    console.log("New transaction: \n" + username + " bought" + productname + ".");
+    var db = connectToDB();
+    var sql = "INSERT INTO Transactions(username, productname) VALUES(?, ?)";
+    db.all(sql, [username, productname], (err, rows) => {
+        db.close();
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        else {
+            res.redirect(200, "profile.html");
+        }
+    });
+});
 // Handle post request for registering a user using ajax
 app.post("/register", function (req, res) {
     var name = req.body.name;
@@ -144,7 +171,7 @@ app.post("/register", function (req, res) {
         // open database file
         var db = connectToDB();
         // insert new user into database
-        var sql = "INSERT INTO Users(name, password, address, zipcode, email) VALUES(?, ?, ?, ?, ?)"
+        var sql = "INSERT INTO Users(name, password, address, zipcode, email) VALUES(?, ?, ?, ?, ?)";
         db.all(sql, [newUser.name, newUser.password, newUser.address, newUser.zipcode, newUser.email], (err, rows) => {
             // .close inside callback to close after query has ended
             db.close();
@@ -157,7 +184,6 @@ app.post("/register", function (req, res) {
                 res.redirect(200, "index.html");
             }
         });
-
     }
     else { // if password and repassword don't match
         console.log("passwords do not match.");
@@ -179,7 +205,7 @@ app.post("/editprofile", function (req, res) {
         // open database file
         var db = connectToDB();
         // insert new user into database
-        var sql = "UPDATE Users SET name = ? WHERE name = Carlo";
+        var sql = "UPDATE Users SET name = ? WHERE name = Carlo"; //TODO: get name from cookie
         db.all(sql, [name], (err, rows) => {
             // .close inside callback to close after query has ended
             db.close();
@@ -201,7 +227,7 @@ app.post("/editprofile", function (req, res) {
     }
 });
 // log in procedure
-app.post("/login", function (req, res) {    
+app.post("/login", function (req, res) {
     var db = connectToDB();
     var sql = "SELECT * FROM Users WHERE (name == ?) AND (password == ?)"
     var name = req.body.username;
@@ -216,9 +242,9 @@ app.post("/login", function (req, res) {
             rows.forEach(function (row) {
                 console.log('Login Succes');
                 // start a session
-                sess = req.session;
-                sess.name = name;
-                res.cookie('user', name, { maxAge: 60000 });
+                //sess = req.session;
+                //sess.name = name;
+                res.cookie('Username', name, { maxAge: 60000, httpOnly: false });
                 //res.write('Hello ' + sess.name);
                 //res.end(); //TODO: savestate (reopening a browser)
                 res.redirect(200, "index.html");
@@ -263,6 +289,27 @@ app.get("/products", function (req, res) {
         rows.forEach((row) => {
             //Log each row when products are fetched
             //console.log(row);
+        });
+    });
+});
+
+app.get("/history", function (req, res) {
+    let db = new sqlite3.Database(file);
+    let sql = "SELECT * FROM Transactions WHERE username LIKE ?";
+    // using json data
+    var jsonData = {};
+    db.all(sql, [req.query.username], (err, rows) => {
+        db.close();
+
+        jsonData = JSON.stringify(rows);
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(jsonData);
+        if (err) {
+            throw err;
+        }
+        rows.forEach((row) => {
+            //Log each transaction after they are fetched
+            console.log(row);
         });
     });
 });

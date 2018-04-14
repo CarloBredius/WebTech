@@ -34,10 +34,12 @@
             No account yet?
             <a href="register.html">register</a><br />
         </div>
+        <button id="loginButton">logintest</button>
+
         <div id="loggedInText">
             Welcome User! <br />
             <form action="/logout" method="get">
-                <input type="submit" value="Log out" />
+                <input id="logoutButton" type="submit" value="Log out" />
             </form>
         </div>
     </aside>
@@ -59,8 +61,11 @@
                     <option value="manufacturer">Manufacturer</option>
                 </select>
             </p>
-            <section id="showproducts">
+            <section>
                 <h2>Products</h2>
+                <div id="showproducts">
+
+                </div>
             </section>
             <p>
                 <!-- use AJAX for more or less products -->
