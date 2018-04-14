@@ -8,9 +8,9 @@ var cookie;
 // load products and eventlisteners when the document is ready
 $(document).ready(function () {
     // Fill screen with 10 products initially
-    GetProducts();
     //check which user is logged in if any
     CheckUser();
+    GetProducts();
 
     // check session
     document.getElementById("search").addEventListener("click", function (evt) {
@@ -25,17 +25,21 @@ $(document).ready(function () {
         var productPrice = $(this).parent().attr('data-productPrice');
         //var productPrice = $(this).parent().children("#price");
         var txt;
-        var buy = confirm("Are you sure you want to buy " + productId + " for $" + productPrice + ",- ?");
-        if (buy == true) {
-            //TODO: get user from session
-            txt = productId + " is added to the history of " + cookie + ".";
-            // Store product in bought history
-            post('/transaction', { username: cookie, productname: productId });
+        if (loggedIn) {
+            var buy = confirm("Are you sure you want to buy " + productId + " for $" + productPrice + ",- ?");
+            if (buy == true) {
+                txt = productId + " is added to the history of " + cookie + ".";
+                // Store product in bought history
+                post('/transaction', { username: cookie, productname: productId });
+            }
+            else {
+                txt = "Declined"
+            }
+            alert(txt);
         }
         else {
-            txt = "Declined"
+            alert("Log in to buy products");
         }
-        alert(txt);
     });
 
     document.getElementById("order").addEventListener("change", function (evt) {
@@ -111,14 +115,12 @@ function LoginVisibility() {
         $("#loggedInText").show();
         $("#loginform").hide();
         $("#registerText").hide();
-        $("#showproducts").find("button").hide();
         $("#profilePage").show();
     }
     else {
         $("#loggedInText").hide();
         $("#loginform").show();
         $("#registerText").show();
-        $("#showproducts").find("button").show();
         $("#profilePage").hide();
     }
 }
