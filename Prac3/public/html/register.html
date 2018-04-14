@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/form.css">
     <link rel="shortcut icon" type="image/x-icon" href="media/favicon.ico">
+    <script src="javascript/register.js"></script>
+
     <title>Register</title>
 </head>
 <body>
@@ -29,15 +31,17 @@
             </p>
             <p>
                 <label>Password:</label>
-                <input type="password" name="password" placeholder="What password would you like?" />
+                <input type="password" name="password" onkeyup="matchPassword()" placeholder="What password would you like?" />
             </p>
             <p>
-                <label>Re-enter password:</label>
-                <input type="password" name="repassword" placeholder="Re-enter your password" />
+                <label>Re-enter password:</label> 
+                <input type="password" name="repassword" onkeyup="matchPassword()" placeholder="Re-enter your password" />
+                <label id="match"> Match?</label>
             </p>
+
             <p>
                 <label> </label>
-                <button id="submit">submit</button>
+                <button id="submit">Submit</button>
             </p>
             <p>
                 <br />

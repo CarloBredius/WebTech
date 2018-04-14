@@ -38,6 +38,7 @@ var exists = fs.existsSync(file);
 if (!exists) {
     fs.openSync(file, "w");
 }
+var loggedInUser;
 //import SQLite3
 const sqlite3 = require("sqlite3").verbose();
 
@@ -181,35 +182,31 @@ app.post("/register", function (req, res) {
                 throw err;
             }
             else {
-                //TODO: send alert
                 res.redirect(302, "index.html");
             }
         });
     }
     else { // if password and repassword don't match
         console.log("passwords do not match.");
-        //TODO: send alert
         res.redirect(302, "register.html");
     }
 });
 //edit profile procedure
 app.post("/editprofile", function (req, res) {
-    console.log("testin testing");
-    var name = req.body.name;
-    var password = req.body.password;
-    var repassword = req.body.repassword;
-    var address = req.body.address;
-    this.zipcode = req.body.zipcode;
-    this.email = req.body.email;
-    console.log("Editing profile data of " + "cookie user" + "with new data: " + name + ' ' + password + ' ' + address + ' ' + zipcode + ' ' + email);
+    password = req.body.password;
+    repassword = req.body.repassword;
+    address = req.body.address;
+    zipcode = req.body.zipcode;
+    email = req.body.email;
+    console.log("Editing profile data of " + loggedInUser + " with new data: " + password + ' ' + address + ' ' + zipcode + ' ' + email);
     // check if password matches the repassword
     if (password === repassword) {
         console.log("Passwords match.");
         // open database file
         var db = connectToDB();
         // insert new user into database
-        var sql = "UPDATE Users SET name = ? WHERE name = Carlo"; //TODO: get name from cookie
-        db.all(sql, [name], (err, rows) => {
+        var sql = "UPDATE Users SET name = ?, password = ?, address = ?, zipcode = ?, email = ? WHERE name = ?";
+        db.all(sql, [password, address, zipcode, email, loggedInUser], (err, rows) => {
             // .close inside callback to close after query has ended
             db.close();
 
@@ -218,7 +215,6 @@ app.post("/editprofile", function (req, res) {
                 throw err;
             }
             else {
-                console.log(sql);
                 res.redirect(302, "profile.html");
             }
         });
@@ -233,6 +229,7 @@ app.post("/login", function (req, res) {
     var db = connectToDB();
     var sql = "SELECT * FROM Users WHERE (name == ?) AND (password == ?)"
     var name = req.body.username;
+    loggedInUser = name;
     db.all(sql, [name, req.body.password], function (err, rows) {
         db.close();
         // check if user exists
@@ -246,8 +243,9 @@ app.post("/login", function (req, res) {
                 // start a session using a cookie
                 var sess = req.session;
                 sess.name = name;
-                res.cookie('Username', name, { maxAge: 60000, httpOnly: false });
-                //TODO: savestate (reopening a browser)
+                // user logs out after 1 hour
+                // within this time user can close and open browser and still be logged in
+                res.cookie('Username', name, { maxAge: 3600000, httpOnly: false });
                 res.redirect(302, "index.html");
             });
         }

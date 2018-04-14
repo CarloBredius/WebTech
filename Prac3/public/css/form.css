@@ -19,3 +19,9 @@ input[type="submit"] {
 	display:table-cell;
 	width:100%;
 }
+
+#match {
+    display: table-cell;
+    color: red;
+    padding-left:5px;
+}

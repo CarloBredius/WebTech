@@ -1,15 +1,12 @@
 // JavaScript code for matching password and repassword
-// might not be used in the end
 
-$(document).ready(function () {
-    document.getElementsByName("repassword")[0].addEventListener("keydown", function () {
-        var password = document.getElementsByName("password").value;
-        var repassword = document.getElementsByName("repassword").value;
-        alert(password);
-        console.log(password);
-        if (password == repassword) {
-            document.getElementById("correct").style = "green";
-            alert("test");
-        }
-    });
-});
+function matchPassword() {
+    var password = document.getElementsByName("password")[0].value;
+    var repassword = document.getElementsByName("repassword")[0].value;
+    if (password === repassword) {
+        document.getElementById("match").style.color = "green";
+    }
+    else {
+        document.getElementById("match").style.color = "red";
+    }
+}
