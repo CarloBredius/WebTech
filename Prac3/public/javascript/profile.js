@@ -1,4 +1,4 @@
-// JavaScript code for profile page
+// JavaScript code for getting the bought history of the logged in user page and showing/hiding the edit profile form
 $(document).ready(function () {
     GetHistory();
     $("#profileform").hide();
@@ -6,7 +6,7 @@ $(document).ready(function () {
         $("#profileform").show();
     });
 });
-
+// function to get the bought history of the logged in user
 function GetHistory() {
     $.ajax({
         method: "GET",
@@ -23,7 +23,6 @@ function GetHistory() {
         }
     });
 }
-
 // get only the value from a cookie
 function getCookie(name) {
     var value = "; " + document.cookie;

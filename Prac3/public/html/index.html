@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+<!-- Index of the site, products and search options are shown here. Logging in is done in the aside -->
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -20,9 +21,8 @@
     </nav>
     <aside id="logIn">
         <form id='loginform' action="/login" method="post">
-            <!-- kan value veranderen met informatie uit een cookie (bv. de vorige RB) -->
             Username:<br />
-            <input type="text" name="username" value="Carlo" />
+            <input type="text" name="username"  />
             <br />
             Password:<br />
             <input type="password" name="password" />
@@ -68,7 +68,6 @@
             <p>
                 <!-- use AJAX for more or less products -->
                 <button id="less">Less</button>
-                <!-- Gebruik AJAX call om de volgende 10 producten op te vragen-->
                 <button id="more">More</button>
             </p>
         </section>

@@ -1,6 +1,13 @@
 #!/usr/bin/env nodejs
 
-// make use of libraries
+// Server side javascript
+// Handling all http request coming to the server
+// Declaring and setting middlewares
+// Has user and product classese
+// Creating and using the SQLite3 database with its three tables (Users, Products and Transactions)
+// Some functions for debugging are not used but not deleted for testing
+
+// make use of middlewares
 var http = require('http');
 var express = require('express');
 const bodyParser = require('body-parser');
@@ -88,7 +95,7 @@ function createTables() {
                 "manufacturer TEXT NOT NULL, " +
                 "image TEXT NOT NULL)");
 
-            console.log("Tables created \n");
+            console.log("Users table and Products table created \n");
         }
     });
 }
@@ -140,7 +147,7 @@ app.post("/transaction", function (req, res) {
     var username = req.body.username;
     var productname = req.body.productname;
 
-    console.log("New transaction: \n" + username + " bought " + productname + ".");
+    console.log("New transaction: \n" + username + " bought " + productname);
     var db = connectToDB();
     var sql = "INSERT INTO Transactions(username, productname) VALUES(?, ?)";
     db.all(sql, [username, productname], (err, rows) => {
@@ -287,7 +294,7 @@ app.get("/products", function (req, res) {
             throw err;
         }
         rows.forEach((row) => {
-            //Log each row when products are fetched
+            //Log each product when they are fetched
             //console.log(row);
         });
     });
@@ -298,7 +305,6 @@ app.get("/history", function (req, res) {
     let sql = "SELECT * FROM Transactions WHERE username LIKE ?";
     // using json data
     var jsonData = {};
-    console.log(req.query.username);
     db.all(sql, [req.query.username], (err, rows) => {
         db.close();
 

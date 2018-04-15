@@ -1,4 +1,5 @@
 // JavaScript source code on client side
+
 //set some global variables to be used in multiple methods
 var productAmount = 10;
 var ordered = "name";
@@ -109,6 +110,7 @@ function GetProducts() {
         }
     });
 }
+// Change what is shown to an Anonymous User (AU) and a Registered Buyer (RB)
 function LoginVisibility() {
     if (loggedIn) {
         $("#user").html(cookie);
