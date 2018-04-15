@@ -94,18 +94,12 @@ function createTables() {
                 "category TEXT NOT NULL, " +
                 "manufacturer TEXT NOT NULL, " +
                 "image TEXT NOT NULL)");
+            db.run("CREATE TABLE Transactions " +
+                "(username TEXT NOT NULL, " +
+                "productname TEXT NOT NULL)");
 
-            console.log("Users table and Products table created \n");
+            console.log("Users table, Transaction table and Products table created \n");
         }
-    });
-}
-//function to create transaction table
-function createTransactionTable() {
-    db.serialize(function () {
-        db.run("CREATE TABLE Transactions " +
-            "(username TEXT NOT NULL, " +
-            "productname TEXT NOT NULL)");
-        console.log("transaction table created \n");
     });
 }
 // insert user into database
@@ -212,7 +206,7 @@ app.post("/editprofile", function (req, res) {
         // open database file
         var db = connectToDB();
         // insert new user into database
-        var sql = "UPDATE Users SET name = ?, password = ?, address = ?, zipcode = ?, email = ? WHERE name = ?";
+        var sql = "UPDATE Users SET password = ?, address = ?, zipcode = ?, email = ? WHERE name = ?";
         db.all(sql, [password, address, zipcode, email, loggedInUser], (err, rows) => {
             // .close inside callback to close after query has ended
             db.close();
